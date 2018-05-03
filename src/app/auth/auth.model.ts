@@ -15,7 +15,7 @@ export interface Role {
     id: number;
     name: string;
     notes: string;
-    privileges: string;
+    permissions: string;
 }
 
 export interface LoginParams {

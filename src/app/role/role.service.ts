@@ -10,19 +10,19 @@ export class RoleService{
     @Inject('baseApi') private baseApi: string) {}
 
     fetch() {
-      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/profile`);
+      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/roles`);
     }
 
     permissions() {
-      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/account/getroles`);
+      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/permissions`);
     }
 
     save(role: Role) {
-      if (role.id) return this.httpClient.put<ResponseObject<Role>>(`${this.baseApi}/account/updateprofile`, role);
+      if (role.id) return this.httpClient.put<ResponseObject<Role>>(`${this.baseApi}/role`, role);
       return this.httpClient.post<ResponseObject<Role>>(`${this.baseApi}/profile`, role);
     }
 
     destroy(id: number) {
-      return this.httpClient.delete<ResponseObject<Role>>(`${this.baseApi}/profile?id=${id}`);
+      return this.httpClient.delete<ResponseObject<Role>>(`${this.baseApi}/role/${id}`);
     }
 }

@@ -25,7 +25,7 @@
                         <td class="table-index">{{i + 1}}.</td>
                         <td>{{role.name}}</td>
                         <td>{{role.notes}}</td>
-                        <td>{{role.privileges.split(",").length}}</td>
+                        <td>{{role.permissions.split(",").length}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -69,23 +69,29 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item bg-light">
                                 <span style="font-size: 18px">
-                                    <strong>Privileges</strong>
+                                    <strong>Permissions</strong>
                                 </span>
-                                <div class="float-right">
-                                    <label for="all" class="custom-control custom-checkbox">
+                                <div class="custom-control custom-checkbox float-right">
+                                        <input type="checkbox" id="all" class="custom-control-input" name="checkAll" [checked]="checkAll" (change)="selectAll($event)">
+                                        <label for="all" class="custom-control-label"></label>
+                                    <!-- <label for="all" class="custom-control custom-checkbox">
                                         <input type="checkbox" id="all" class="custom-control-input" name="checkAll" [checked]="checkAll" (change)="selectAll($event)"
                                         />
                                         <span class="custom-control-indicator"></span>
-                                    </label>
+                                    </label> -->
                                 </div>
                             </li>
-                            <li class="list-group-item" *ngFor="let perm of privileges">
-                                {{perm.name}}
-                                <label for="{{perm.name}}" class="custom-control custom-checkbox float-right">
+                            <li class="list-group-item" *ngFor="let perm of permissions">
+                                <div class="float-left">{{perm.name}}</div>
+                                <div class="custom-control custom-checkbox float-right">
+                                    <input type="checkbox" id="{{perm.name}}" class="custom-control-input" name="checked" [checked]="perm.checked" (change)="selectOne(perm, $event)">
+                                    <label for="{{perm.name}}" class="custom-control-label"></label>
+                                </div>
+                                <!-- <label for="{{perm.name}}" class="custom-control custom-checkbox float-right">
                                     <input type="checkbox" id="{{perm.name}}" class="custom-control-input" name="checked" [checked]="perm.checked" (change)="selectOne(perm, $event)"
                                     />
                                     <span class="custom-control-indicator"></span>
-                                </label>
+                                </label> -->
                             </li>
                         </ul>
                     </div>

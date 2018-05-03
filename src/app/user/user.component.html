@@ -43,8 +43,8 @@
                                 <label class="float-label">Username
                                     <i class="fa fa-asterisk text-danger"></i>
                                 </label>
-                                <input type="text" class="form-control" formControlName="userName">
-                                <div class="alert alert-danger" *ngIf="userForm.controls.userName.touched && userForm.controls.userName.errors">
+                                <input type="text" class="form-control" formControlName="username">
+                                <div class="alert alert-danger" *ngIf="userForm.controls.username.touched && userForm.controls.username.errors">
                                     Username must be at least 6 characters long
                                 </div>
                             </div>
@@ -79,9 +79,9 @@
                                 <label>Role
                                     <i class="fa fa-asterisk text-danger"></i>
                                 </label>
-                                <select class="form-control" formControlName="roleId">
+                                <select class="form-control" formControlName="role" [compareWith]="compareRoles">
                                     <option value="">Select Role</option>
-                                    <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
+                                    <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -111,14 +111,6 @@
         </div>
     </div>
 
-    <!-- <div class="row">
-        <label>Select Filter</label>
-        <p-dropdown [options]="filter" [style]="{'width': '200px'}" placeholder="Select a key" [(ngModel)]="selectedFilter"></p-dropdown>
-        <p-dropdown [options]="operation" [style]="{'width': '50px'}"></p-dropdown>
-        <p-dropdown [options]="filter" [style]="{'width': '200px'}" *ngIf="selectedFilter?.type == 'select'"></p-dropdown>
-        <input type="text" style="width: 200px" pInputText *ngIf="selectedFilter?.type == 'text'">
-    </div> -->
-
     <div class="row" *ngIf="!loading">
         <div class="col-sm-12">
             <table class="table table-bordered table-hover table-responsive-sm">
@@ -136,7 +128,7 @@
                     <tr *ngFor="let user of users; let i = index" class="pointer" (click)="selectRow(user)">
                         <td class="table-index">{{i + 1}}.</td>
                         <td>{{user.name}}</td>
-                        <td>{{user.userName}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.phoneNumber}}</td>
                         <td>{{user.role.name}}</td>

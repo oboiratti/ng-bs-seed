@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { User, UserQuery } from '../auth/auth.model';
+import { User, UserQuery, Role } from '../auth/auth.model';
 import { UserService } from './user.service';
 import { RoleService } from '../role/role.service';
 import { MessageDialog } from '../shared/message_helper';
@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
       name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')),
       phoneNumber: new FormControl(''),
-      userName: new FormControl('', Validators.compose([
+      username: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(5)
       ])),
@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
         Validators.minLength(6)
       ])),
       confirmPassword: new FormControl('', Validators.required),
-      roleId: new FormControl('', Validators.required)
+      role: new FormControl('', Validators.required)
     }, { validator: this.checkPasswords });
   }
 
@@ -74,6 +74,7 @@ export class UserComponent implements OnInit {
 
   openForm() {
     this.userForm.reset();
+    this.userForm.get("username").enable();
     $("#userForm").modal("show")
   }
 
@@ -89,6 +90,7 @@ export class UserComponent implements OnInit {
 
   selectRow(user: User) {
     this.userForm.patchValue(user);
+    this.userForm.get("username").disable();
     $("#userForm").modal("show")
   }
 
@@ -148,6 +150,10 @@ export class UserComponent implements OnInit {
       }
     });
   }
+
+  compareRoles(obj1: Role, obj2: Role): boolean {
+    return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
+}
 
   private fetchRoles() {
     this.loading = true;

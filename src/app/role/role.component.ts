@@ -17,7 +17,7 @@ export class RoleComponent implements OnInit {
 
   roles: Role[];
   showForm: boolean;
-  privileges: any[] = [];
+  permissions: any[] = [];
   role = <Role>{};
   checkAll: boolean;
   title = "Add New Role";
@@ -39,7 +39,7 @@ export class RoleComponent implements OnInit {
     this.title = "Add New Role";
     this.showForm = false;
     this.role = <Role>{};
-    this.privileges.forEach((perm) => {
+    this.permissions.forEach((perm) => {
       perm.checked = false;
     });
   }
@@ -47,30 +47,30 @@ export class RoleComponent implements OnInit {
   selectRow(role: Role) {
     this.title = "Edit Role";
     this.role = role;
-    let perms = role.privileges.split(",");
-    this.privileges.forEach((perm) => {
+    let perms = role.permissions.split(",");
+    this.permissions.forEach((perm) => {
       perm.checked = false;
       perm.checked = perms.includes(perm.name)
     });
 
-    if (perms.length == this.privileges.length) {
+    if (perms.length == this.permissions.length) {
       this.checkAll = true;
     } else {
       this.checkAll = false;
     }
     this.showForm = true;
-    console.log(perms.length, this.privileges.length);
+    console.log(perms.length, this.permissions.length);
   }
 
   selectOne(perm, event) {
     let cnt = 0;
-    this.privileges.find(obj => obj.name === perm.name).checked = event.target.checked;
+    this.permissions.find(obj => obj.name === perm.name).checked = event.target.checked;
     
-    this.privileges.map((perm) => {
+    this.permissions.map((perm) => {
       if (perm.checked) cnt++;
     });
 
-    if (cnt == this.privileges.length) {
+    if (cnt == this.permissions.length) {
       this.checkAll = true;
     } else {
       this.checkAll = false;
@@ -78,7 +78,7 @@ export class RoleComponent implements OnInit {
   }
 
   selectAll(event) {
-    this.privileges.map((perm) => {
+    this.permissions.map((perm) => {
       perm.checked = event.target.checked
     });
     this.checkAll = true;
@@ -86,21 +86,21 @@ export class RoleComponent implements OnInit {
 
   save() {
     let permString = "";
-    this.privileges.map((perm) => {
+    this.permissions.map((perm) => {
       if (perm.checked) {
         permString += perm.name;
         permString += ",";
       }
     });
     permString = permString.substring(0, permString.length - 1);
-    this.role.privileges = permString;
+    this.role.permissions = permString;
 
     if (!this.role.name) {
       MessageDialog.error("Please enter the name of the role to be created");
       return;
     }
 
-    if (this.role.privileges === "") {
+    if (this.role.permissions === "") {
       MessageDialog.error("Role must have at least one permission");
       return;
     }
@@ -160,9 +160,7 @@ export class RoleComponent implements OnInit {
   private fetchPermissions() {
     this.roleService.permissions().subscribe((res) => {
       if (res.success) {
-        this.privileges = res.data.map((perm) => {
-          return {"name": perm};
-        });
+        this.permissions = res.data;
       }
     }, err => {
       console.log("Error -> " + err.message);
