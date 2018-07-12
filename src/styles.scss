@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+$navbar-color: #1976d2;
+$navbar-text-color: #fff;
+
 body {
     padding-top: 56px;
 }
@@ -17,7 +20,7 @@ body {
     -ms-background-clip: padding-box;
     background-clip: padding-box;
     background-color: #d0cece;
-    -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
     -webkit-border-radius: 3px;
     -ms-border-radius: 3px;
     border-radius: 3px;
@@ -35,57 +38,59 @@ body {
     background-color: #F5F5F5;
 }
 
-.wrapper {
-    display: flex;
-    display: -ms-flexbox;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-positive: 1;
-    // flex-grow: 1;
-    overflow-x: hidden
+.navbar {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
 }
 
-// .wrapper .sidebar {
-//     -ms-flex: 0 0 200px;
-//     flex: 0 0 200px;
-//     -ms-flex-order: -1;
-//     order: -1;
-// }
+.navbar-color {
+    background-color: $navbar-color !important;
+    color: $navbar-text-color !important;
+
+    .btn {
+        background-color: $navbar-color !important;
+    }
+
+    .nav-link {
+        color: $navbar-text-color !important;
+    }
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
 
 .sidebar {
     position: fixed;
     width: 250px;
     height: 100%;
-    display: flex;
-    display: -ms-flexbox;
-    flex-direction: column;
     overflow: auto;
+    transition: all 0.3s;
+    z-index: 1000;
+    background-color: #fff;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
 
     .user-view {
-        position: relative;
-        padding: 32px 32px 0;
-        margin-top: 0.5px;
+        padding: 32px 10px;
+        background-color: $navbar-color;
     }
 
     .image {
-        width: 64px;
+        width: 50px;
     }
 
-    .name, .email {
-        display: block;
+    .user-info {
         font-size: 14px;
         line-height: 24px;
-    }
-
-    .name {
-        margin-top: 16px;
+        color: #fff;
         font-weight: 500;
     }
 
-    .email {
-        padding-bottom: 16px;
-        font-weight: 400
+    .truncate-text {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
     }
 
     .nav {
@@ -98,56 +103,77 @@ body {
         }
 
         i {
-            margin-right: 10px;
+            margin-right: 20px;
         }
     }
 
     li > a:hover {
-        color: #007bff;
+        color: #007bff!important;
     }
 
     .active {
-        border-left: solid 5px #007bff;
+        border-right: solid 5px #007bff;
         background-color: rgba(0, 0, 0, 0.05);
     }
 }
 
-/* @media (max-width: 991px) {
-    .sidebar {
-        position: fixed;
-        width: 200px;
-        margin-left: -220px;
-        height: auto;
-        display: flex;
-        display: -ms-flexbox;
-        flex-direction: column;
-    }
-} */
+.sidebar.toggle {
+    margin-left: -250px;
+}
 
 .main-content {
-    margin-right: 0;
-    margin-left: 250px;
-    flex: 1;
+    width: calc(100% - 250px);
+    position: fixed;
+    right: 0;
+    transition: all 0.3s;
 }
 
-/* @media (max-width: 991px) {
+.main-content.toggle {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+
+    .sidebar.toggle {
+        margin-left: 0px;
+    }
+
     .main-content {
-        margin-left: 0!important;
+        width: 100%;
     }
-} */
 
-@media (max-width: 991px) {
-    .navbar-brand {
-        position: absolute;
-        left: 50%;
+    .main-content.toggle {
+        width: calc(100% - 250px);
     }
+
+    // .overlay {
+    //     display: none;
+    //     position: fixed;
+    //     width: 100vw;
+    //     height: 100vh;
+    //     background: rgba(0, 0, 0, 0.7);
+    //     z-index: 1998;
+    //     opacity: 0;
+    //     transition: all 0.5s ease-in-out;
+    // }
+    
+    // .overlay.toggle {
+    //     display: block;
+    //     opacity: 0.5;
+    // }
 }
+
+
 
 .page-header {
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid #e4e5e7;
     /* border-radius: 4px; */
+    box-shadow: 0px 1px 9px #ddd !important;
 }
 
 .page-content {

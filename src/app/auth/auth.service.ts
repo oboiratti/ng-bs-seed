@@ -4,10 +4,13 @@ import { Injectable, Inject } from '@angular/core';
 import { User, LoginParams } from "./auth.model";
 import { ResponseObject } from "../shared/common-entities.model";
 import { HttpClient } from "@angular/common/http";
+import { Subject } from '../../../node_modules/rxjs/Subject';
 
 @Injectable()
 export class AuthService {
   currentUser: User
+  loggedInSource = new Subject<boolean>()
+  loggedIn$ = this.loggedInSource.asObservable()
 
   constructor(private httpClient: HttpClient,
     @Inject('baseApi') private baseApi: string
@@ -40,4 +43,8 @@ export class AuthService {
   }
 
   isLoggedIn() { return !!this.currentUser }
+
+  announceLogin(isLoggedIn: boolean) {
+    this.loggedInSource.next(isLoggedIn)
+  }
 }

@@ -1,12 +1,15 @@
 <block-ui>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar fixed-top navbar-expand navbar-dark navbar-color">
     <a href="#" class="navbar-brand">App Name</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    <button class="btn btn-primary" type="button" *ngIf="isLoggedIn" (click)="toggle()">
+      <i class="fa fa-bars"></i>
+    </button>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn()">
+      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome Admin
@@ -22,18 +25,18 @@
     </div>
   </nav>
 
-  <div class="wrapper">
-    <div class="sidebar flex-column" *ngIf="isLoggedIn()">
-      <div class="user-view bg-primary">
-        <div>
-          <img class="img-fluid rounded-circle image" src="../assets/images/user_default.png">
+  <div class="wrapper" (user)="loggedIn($event)">
+    <nav class="sidebar" *ngIf="isLoggedIn" #sidebar>
+      <div class="user-view">
+        <div class="row">
+          <div class="col-sm-4">
+            <img class="img-fluid rounded-circle image" src="../assets/images/user_default.png">
+          </div>
+          <div class="col-sm-8 user-info">
+            <div class="truncate-text">{{username}}</div>
+            <div class="truncate-text">{{email}}</div>
+          </div>
         </div>
-        <a href="#!name" class="text-white">
-          <span class="name">{{username}}</span>
-        </a>
-        <a href="#!email" class="text-white">
-          <span class="email">{{email}}</span>
-        </a>
       </div>
       <ul class="nav flex-column flex-nowrap">
         <li class="nav-item" *ngFor="let menu of menus" routerLinkActive="active">
@@ -42,9 +45,12 @@
           </a>
         </li>
       </ul>
-    </div>
-    <main class="main-content">
+    </nav>
+
+    <main class="main-content" #content>
       <router-outlet></router-outlet>
     </main>
+
+    <div class="overlay" #overlay></div>
   </div>
 </block-ui>

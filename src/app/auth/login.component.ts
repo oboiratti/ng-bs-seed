@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     this.authService.authenticate(params).subscribe((res) => {
         this.loading = false;
         if (res.success) {
+          this.authService.announceLogin(res.success)
           this.authService.setUser(res.data);
           this.router.navigate(['/dashboard']);
         }
