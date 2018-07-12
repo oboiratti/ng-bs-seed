@@ -5,16 +5,16 @@ import { User, LoginParams } from "./auth.model";
 import { ResponseObject } from "../shared/common-entities.model";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from '../../../node_modules/rxjs/Subject';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
   currentUser: User
   loggedInSource = new Subject<boolean>()
   loggedIn$ = this.loggedInSource.asObservable()
+  baseApi = environment.apiUrl
 
-  constructor(private httpClient: HttpClient,
-    @Inject('baseApi') private baseApi: string
-  ) {
+  constructor(private httpClient: HttpClient) {
     if (localStorage.getItem("currentUser")) {
       this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     }

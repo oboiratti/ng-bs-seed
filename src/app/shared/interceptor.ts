@@ -1,7 +1,8 @@
+import { tap } from 'rxjs/operators';
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/do';
+import { Observable } from "rxjs";
+
 
 import { User } from "../auth/auth.model";
 import { Toast } from "./message_helper";
@@ -20,22 +21,25 @@ export class Interceptor implements HttpInterceptor {
 
         return next
             .handle(authReq)
-            .do((response: HttpResponse<any>) => {
-                if (response.status === 200 && req.method !== 'GET') {
-                    Toast.show(response.body.message, response.body.success);
-                }
-            },
-            err => {
-                console.log(err);
-                
-                if (err.error) {
-                    if (err.error.message === "No message available") {
-                        Toast.error(err.error.error);
+            .pipe(
+                tap((response: HttpResponse<any>) => {
+                    if (response.status === 200 && req.method !== 'GET') {
+                        Toast.show(response.body.message, response.body.success);
                     }
-                    else Toast.error(err.error.message);
-                }
-                else if (err.message) Toast.error(err.message);
-            });
+                },
+                    err => {
+                        console.log(err);
+
+                        if (err.error) {
+                            if (err.error.message === "No message available") {
+                                Toast.error(err.error.error);
+                            }
+                            else Toast.error(err.error.message);
+                        }
+                        else if (err.message) Toast.error(err.message);
+                    }
+                )
+            );
     }
 
 }

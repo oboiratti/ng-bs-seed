@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 import { LookUps, SettingsService } from '../settings.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MessageDialog } from '../../shared/message_helper';
