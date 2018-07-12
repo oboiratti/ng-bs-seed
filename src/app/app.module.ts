@@ -5,8 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { PageHeaderComponent } from './shared/page-header/page-header.component';
 import { LoadingComponent } from './shared/loading.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,7 +23,6 @@ import { AuthService } from './auth/auth.service';
 import { RoleService } from './role/role.service';
 import { UserService } from './user/user.service';
 import { SettingsService } from './settings/settings.service';
-
 
 @NgModule({
   declarations: [
