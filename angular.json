@@ -134,5 +134,10 @@
       }
     }
   },
-  "defaultProject": "angular-bootstrap-jseed"
+  "defaultProject": "angular-bootstrap-jseed",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

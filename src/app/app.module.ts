@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { PageHeaderComponent } from './shared/page-header/page-header.component';
 import { LoadingComponent } from './shared/loading.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -18,11 +17,11 @@ import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { GeneralLookupComponent } from './settings/general-lookup/general-lookup.component';
 import { Interceptor } from './shared/interceptor';
-import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth/auth.service';
 import { RoleService } from './role/role.service';
 import { UserService } from './user/user.service';
 import { SettingsService } from './settings/settings.service';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -40,17 +39,16 @@ import { SettingsService } from './settings/settings.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CoreModule,
     BlockUIModule.forRoot()
   ],
   providers: [
     {provide: 'baseApi', useValue: 'api'},
     {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
-    AuthGuard,
     AuthService,
     RoleService,
     UserService,

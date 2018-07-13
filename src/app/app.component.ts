@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { startWith, delay } from "rxjs/operators";
 import { AuthService } from './auth/auth.service';
 
-interface IMenuItem {
+export interface IMenuItem {
   label: string
   route: string
   icon: string
@@ -16,37 +16,15 @@ interface IMenuItem {
 })
 export class AppComponent implements OnInit {
   menus: IMenuItem[];
-  username: string;
-  email: string;
   loading: boolean;
-  @ViewChild('sidebar') sidebar: ElementRef
-  @ViewChild('content') content: ElementRef
-  @ViewChild('overlay') overlay: ElementRef
-  show: boolean
   isLoggedIn: boolean
 
   constructor(private router: Router, 
-    private authService: AuthService, 
-    private renderer: Renderer2, 
-    private elementRef: ElementRef) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.checkLogin();
     this.setMenuItems();
-    this.setUsername();
-  }
-
-  toggle() {
-    this.show = !this.show
-    if (this.show) {
-      this.renderer.addClass(this.sidebar.nativeElement, 'toggle');
-      this.renderer.addClass(this.content.nativeElement, 'toggle');
-      // this.renderer.addClass(this.overlay.nativeElement, 'toggle');
-    } else {
-      this.renderer.removeClass(this.sidebar.nativeElement, 'toggle');
-      this.renderer.removeClass(this.content.nativeElement, 'toggle');
-      // this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
-    }
   }
 
   checkLogin() {
@@ -58,14 +36,6 @@ export class AppComponent implements OnInit {
       console.log(value);
       
     })
-  }
-
-  setUsername() {
-    let user = this.authService.currentUser;
-    if (user) {
-      this.username = user.name;
-      this.email = user.email
-    }
   }
 
   logout() {
