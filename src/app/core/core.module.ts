@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavComponent } from './nav/nav.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
@@ -11,9 +11,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
   ],
   exports: [
     AppRoutingModule,
-    NavComponent,
+    NavbarComponent,
     SidenavComponent
   ],
-  declarations: [NavComponent, SidenavComponent]
+  declarations: [NavbarComponent, SidenavComponent]
 })
 export class CoreModule { }
