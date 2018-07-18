@@ -9,6 +9,7 @@ export class NavbarComponent implements OnInit {
 
   @Input() authenticated: boolean
   @Output() toggle = new EventEmitter()
+  @Output() logout = new EventEmitter()
 
   constructor() { }
 
@@ -17,5 +18,9 @@ export class NavbarComponent implements OnInit {
 
   doToggle() {
     this.toggle.emit()
+  }
+
+  doLogout() {
+    this.logout.emit()
   }
 }

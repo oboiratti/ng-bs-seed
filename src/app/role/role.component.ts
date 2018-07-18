@@ -42,12 +42,13 @@ export class RoleComponent implements OnInit {
     this.permissions.forEach((perm) => {
       perm.checked = false;
     });
+    this.checkAll = false
   }
 
   selectRow(role: Role) {
     this.title = "Edit Role";
     this.role = role;
-    let perms = role.permissions.split(",");
+    let perms = role.permissions.split(", ");
     this.permissions.forEach((perm) => {
       perm.checked = false;
       perm.checked = perms.includes(perm.name)
@@ -89,10 +90,10 @@ export class RoleComponent implements OnInit {
     this.permissions.map((perm) => {
       if (perm.checked) {
         permString += perm.name;
-        permString += ",";
+        permString += ", ";
       }
     });
-    permString = permString.substring(0, permString.length - 1);
+    permString = permString.substring(0, permString.length - 2);
     this.role.permissions = permString;
 
     if (!this.role.name) {
@@ -111,7 +112,7 @@ export class RoleComponent implements OnInit {
       this.saving = false;
       this.blockForm.stop();
       if (res.success) {
-        this.showForm = false;
+        this.closeForm();
         this.fetchRoles();
       }
     }, err => {
@@ -122,14 +123,14 @@ export class RoleComponent implements OnInit {
 
   remove(id: number) {
     MessageDialog.confirm("Delete Role", "Are you sure you want to delete this role").then((yes) => {
-      if (yes) {
+      if (yes.value) {
         this.deleting = true;
         this.blockForm.start("Deleting")
         this.roleService.destroy(id).subscribe((res) => {
           this.deleting = false;
           this.blockForm.stop();
           if (res.success) {
-            this.showForm = false;
+            this.closeForm();
             this.fetchRoles();
             this.role = <Role>{};
           }

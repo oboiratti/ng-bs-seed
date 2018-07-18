@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
 
 import { AppComponent } from './app.component';
-import { PageHeaderComponent } from './shared/page-header/page-header.component';
 import { LoadingComponent } from './shared/loading.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -22,11 +21,11 @@ import { RoleService } from './role/role.service';
 import { UserService } from './user/user.service';
 import { SettingsService } from './settings/settings.service';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageHeaderComponent,
     LoadingComponent,
     DashboardComponent,
     SettingsComponent,
@@ -44,6 +43,7 @@ import { CoreModule } from './core/core.module';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
+    SharedModule,
     BlockUIModule.forRoot()
   ],
   providers: [

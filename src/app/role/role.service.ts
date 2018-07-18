@@ -19,7 +19,7 @@ export class RoleService{
 
     save(role: Role) {
       if (role.id) return this.httpClient.put<ResponseObject<Role>>(`${this.baseApi}/role`, role);
-      return this.httpClient.post<ResponseObject<Role>>(`${this.baseApi}/profile`, role);
+      return this.httpClient.post<ResponseObject<Role>>(`${this.baseApi}/role`, role);
     }
 
     destroy(id: number) {

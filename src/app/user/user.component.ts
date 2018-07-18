@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
   params: UserQuery;
   totalRecords: number;
   selectedFilter: any;
+  title = "Add New User";
   @BlockUI() blockForm: NgBlockUI;
   @ViewChild('closeBtn') closeBtn: ElementRef;
   @ViewChild('openBtn') openBtn: ElementRef;
@@ -73,13 +74,15 @@ export class UserComponent implements OnInit {
   }
 
   openForm() {
-    this.userForm.reset();
-    this.userForm.get("username").enable();
-    $("#userForm").modal("show")
+    this.showForm = true;
+    // this.userForm.reset();
+    // this.userForm.get("username").enable();
   }
 
   closeForm() {
-    this.closeBtn.nativeElement.click();
+    this.title = "Add New User";
+    this.showForm = false;
+    // this.closeBtn.nativeElement.click();
     this.userForm.reset();
   }
 
