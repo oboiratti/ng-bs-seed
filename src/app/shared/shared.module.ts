@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageHeaderComponent } from './page-header/page-header.component';
+import { ReactiveFormsModule } from '../../../node_modules/@angular/forms';
+import { ValidateFormDirective } from './directives/validate-form.directive';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   declarations: [
-    PageHeaderComponent
+    PageHeaderComponent,
+    ValidateFormDirective
   ],
   exports: [
-    PageHeaderComponent
+    PageHeaderComponent,
+    ValidateFormDirective
   ]
 })
 export class SharedModule { }

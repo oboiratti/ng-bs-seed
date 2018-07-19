@@ -12,8 +12,6 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 export class RoleComponent implements OnInit {
 
   loading: boolean;
-  saving: boolean;
-  deleting: boolean;
 
   roles: Role[];
   showForm: boolean;
@@ -106,10 +104,8 @@ export class RoleComponent implements OnInit {
       return;
     }
     
-    this.saving = true;
     this.blockForm.start("Saving...")
     this.roleService.save(this.role).subscribe((res) => {
-      this.saving = false;
       this.blockForm.stop();
       if (res.success) {
         this.closeForm();
@@ -122,12 +118,10 @@ export class RoleComponent implements OnInit {
   }
 
   remove(id: number) {
-    MessageDialog.confirm("Delete Role", "Are you sure you want to delete this role").then((yes) => {
-      if (yes.value) {
-        this.deleting = true;
+    MessageDialog.confirm("Delete Role", "Are you sure you want to delete this role").then((confirm) => {
+      if (confirm.value) {
         this.blockForm.start("Deleting")
         this.roleService.destroy(id).subscribe((res) => {
-          this.deleting = false;
           this.blockForm.stop();
           if (res.success) {
             this.closeForm();

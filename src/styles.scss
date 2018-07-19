@@ -64,3 +64,18 @@ body {
 .card-footer {
     padding: 0.75rem;
 }
+
+.invalid-msg {
+    padding: 10px;
+    color: red !important;
+    font-size: 12px !important;
+    text-align: left;
+}
+
+.invalid-input {
+    border: solid 1px red !important;
+}
+
+.invalid-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(251, 199, 204, 0.78)!important;
+}

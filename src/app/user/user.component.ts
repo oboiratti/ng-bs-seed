@@ -31,8 +31,6 @@ export class UserComponent implements OnInit {
   selectedFilter: any;
   title = "Add New User";
   @BlockUI() blockForm: NgBlockUI;
-  @ViewChild('closeBtn') closeBtn: ElementRef;
-  @ViewChild('openBtn') openBtn: ElementRef;
 
   filter = [
     { label: "Name", value: { value: "name", type: "text" } },
@@ -55,13 +53,13 @@ export class UserComponent implements OnInit {
       phoneNumber: new FormControl(''),
       username: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(5)
+        Validators.minLength(6)
       ])),
       password: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
       ])),
-      confirmPassword: new FormControl('', Validators.required),
+      passwordConfirmation: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required)
     }, { validator: this.checkPasswords });
   }
@@ -76,7 +74,7 @@ export class UserComponent implements OnInit {
   openForm() {
     this.showForm = true;
     // this.userForm.reset();
-    // this.userForm.get("username").enable();
+    this.userForm.get("username").enable();
   }
 
   closeForm() {
@@ -88,13 +86,16 @@ export class UserComponent implements OnInit {
 
   checkPasswords(formGroup: FormGroup) {
     if (!formGroup.controls) return null;
-    return formGroup.controls['password'].value === formGroup.controls['confirmPassword'].value ? null : { passwordMismatch: true }
+    return formGroup.controls['password'].value === formGroup.controls['passwordConfirmation'].value ? null : { passwordMismatch: true }
   }
 
   selectRow(user: User) {
     this.userForm.patchValue(user);
     this.userForm.get("username").disable();
-    $("#userForm").modal("show")
+    this.userForm.get('password').setValidators(null)
+    this.userForm.get('passwordConfirmation').setValidators(null)
+    this.userForm.updateValueAndValidity()
+    this.showForm = true;
   }
 
   save() {
@@ -102,7 +103,7 @@ export class UserComponent implements OnInit {
 
     if (this.user.id) {
       delete this.user.password;
-      delete this.user.confirmPassword;
+      delete this.user.passwordConfirmation;
     }
 
     this.blockForm.start("Saving...");
@@ -111,8 +112,7 @@ export class UserComponent implements OnInit {
       this.saving = false;
       this.blockForm.stop();
       if (res.success) {
-        this.closeBtn.nativeElement.click();
-        this.userForm.reset();
+        this.closeForm()
         this.fetchUsers();
       }
     }, err => {
@@ -122,16 +122,15 @@ export class UserComponent implements OnInit {
   }
 
   remove(id: number) {
-    MessageDialog.confirm("Delete User", "Are you sure you want to delete this user").then((yes) => {
-      if (yes) {
+    MessageDialog.confirm("Delete User", "Are you sure you want to delete this user").then((confirm) => {
+      if (confirm.value) {
         this.blockForm.start("Deleting...");
         this.deleting = true;
         this.userService.destroy(id).subscribe((res) => {
           this.blockForm.stop();
           this.deleting = false;
           if (res.success) {
-            this.closeBtn.nativeElement.click();
-            this.userForm.reset();
+            this.closeForm()
             this.fetchUsers();
           }
         }, err => {
