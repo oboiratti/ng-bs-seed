@@ -18,19 +18,17 @@ export class SidenavComponent implements OnInit {
   username: string;
   email: string;
 
-  @HostListener('click', ['$event'])
-  clickout(event) {
+  constructor(private authService: AuthService, private renderer: Renderer2) { }
+
+  @HostListener('click')
+  toggleOverlay() {
     if (this.show) {
-      console.log("clicked", event);
       this.renderer.removeClass(this.sidebar.nativeElement, 'toggle');
       this.renderer.removeClass(this.content.nativeElement, 'toggle');
       this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
       this.show = !this.show
     }
-    
   }
-
-  constructor(private authService: AuthService, private renderer: Renderer2, private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.setUsername();
