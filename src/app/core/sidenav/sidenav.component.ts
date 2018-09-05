@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { IMenuItem } from '../../app.component';
 import { AuthService } from '../../auth/auth.service';
 
@@ -18,7 +18,19 @@ export class SidenavComponent implements OnInit {
   username: string;
   email: string;
 
-  constructor(private authService: AuthService, private renderer: Renderer2) { }
+  @HostListener('click', ['$event'])
+  clickout(event) {
+    if (this.show) {
+      console.log("clicked", event);
+      this.renderer.removeClass(this.sidebar.nativeElement, 'toggle');
+      this.renderer.removeClass(this.content.nativeElement, 'toggle');
+      this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
+      this.show = !this.show
+    }
+    
+  }
+
+  constructor(private authService: AuthService, private renderer: Renderer2, private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.setUsername();
@@ -29,11 +41,11 @@ export class SidenavComponent implements OnInit {
     if (this.show) {
       this.renderer.addClass(this.sidebar.nativeElement, 'toggle');
       this.renderer.addClass(this.content.nativeElement, 'toggle');
-      // this.renderer.addClass(this.overlay.nativeElement, 'toggle');
+      this.renderer.addClass(this.overlay.nativeElement, 'toggle');
     } else {
       this.renderer.removeClass(this.sidebar.nativeElement, 'toggle');
       this.renderer.removeClass(this.content.nativeElement, 'toggle');
-      // this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
+      this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
     }
   }
 

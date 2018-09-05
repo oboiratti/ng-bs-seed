@@ -85,6 +85,7 @@ $navbar-color: #1976d2;
 @media (max-width: 768px) {
     .sidebar {
         margin-left: -250px;
+        z-index: 2000;
     }
 
     .sidebar.toggle {
@@ -96,25 +97,19 @@ $navbar-color: #1976d2;
         margin-left: 0px;
     }
 
-    .main-content.toggle {
-        // width: calc(100% - 250px);
-        width: 100%;
-        margin-left: 250px;
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1998;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
     }
-
-    // .overlay {
-    //     display: none;
-    //     position: fixed;
-    //     width: 100vw;
-    //     height: 100vh;
-    //     background: rgba(0, 0, 0, 0.7);
-    //     z-index: 1998;
-    //     opacity: 0;
-    //     transition: all 0.5s ease-in-out;
-    // }
     
-    // .overlay.toggle {
-    //     display: block;
-    //     opacity: 0.5;
-    // }
+    .overlay.toggle {
+        display: block;
+        opacity: 0.5;
+    }
 }
