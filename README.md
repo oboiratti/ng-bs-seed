@@ -1,6 +1,6 @@
 # Angular Bootstrap Jseed
 
-A seed project built with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8. Use angular 6 and bootstrap 4
+A seed project built with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8. Used angular 6 and bootstrap 4
 
 ## Features
 - Authentication

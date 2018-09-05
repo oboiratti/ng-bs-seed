@@ -2,12 +2,14 @@ import { Injectable, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseObject } from '../shared/common-entities.model';
 import { Role } from '../auth/auth.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class RoleService{
+
+  baseApi = environment.apiUrl
  
-  constructor(private httpClient: HttpClient,
-    @Inject('baseApi') private baseApi: string) {}
+  constructor(private httpClient: HttpClient) {}
 
     fetch() {
       return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/roles`);
