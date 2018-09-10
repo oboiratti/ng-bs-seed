@@ -1,4 +1,4 @@
-$navbar-color: #1976d2;
+$navbar-color: linear-gradient(120deg, #3085d6, #f27474);
 $navbar-text-color: #fff;
 
 .navbar {
@@ -6,11 +6,12 @@ $navbar-text-color: #fff;
 }
 
 .navbar-color {
-    background-color: $navbar-color !important;
+    background: $navbar-color !important;
     color: $navbar-text-color !important;
 
     .btn {
-        background-color: $navbar-color !important;
+        background-color: transparent!important;
+        border: none;
     }
 
     .nav-link {

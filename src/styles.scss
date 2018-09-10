@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/css/variables.scss";
+
 body {
-    padding-top: 56px;
+    padding-top: 53px;
+}
+
+label {
+    font-size: $font-size-base!important;
 }
 
 ::-webkit-scrollbar {

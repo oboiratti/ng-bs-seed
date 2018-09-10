@@ -12,11 +12,11 @@ export class RoleService{
   constructor(private httpClient: HttpClient) {}
 
     fetch() {
-      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/roles`);
+      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`);
     }
 
     permissions() {
-      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/permissions`);
+      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/role/permissions`);
     }
 
     save(role: Role) {

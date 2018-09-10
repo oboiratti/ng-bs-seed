@@ -3,7 +3,7 @@
 <div class="page-content">
     <div class="row mb-4" *ngIf="!showForm">
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary" (click)="openForm()" *ngIf="!loading" #openBtn>
+            <button type="button" class="btn btn-primary-custom" (click)="openForm()" *ngIf="!loading" #openBtn>
                 <i class="fa fa-plus left"></i> Add User</button>
             <loading class="float-right" text="Loading..." *ngIf="loading"></loading>
         </div>
@@ -13,7 +13,7 @@
         <form [formGroup]="userForm">
             <div class="card">
                 <div class="card-header">
-                    <h5>User Form</h5>
+                    <strong>User Form</strong>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -110,11 +110,11 @@
                     <button type="button" class="btn btn-danger float-right" (click)="remove(userForm.controls.id.value)" *ngIf="userForm.controls.id.value">
                         <i class="fa fa-trash"></i> Delete
                     </button>
-                    <button type="button" class="btn btn-secondary" (click)="closeForm()">
-                        <i class="fa fa-close"></i> Cancel
-                    </button>
                     <button type="submit" class="btn btn-success" [validate-form]="userForm" (valid)="save()">
                         <i class="fa fa-save"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="closeForm()">
+                        <i class="fa fa-close"></i> Cancel
                     </button>
                 </div>
             </div>

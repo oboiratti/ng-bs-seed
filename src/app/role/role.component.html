@@ -3,7 +3,7 @@
 <div class="page-content">
     <div class="row mb-4" *ngIf="!showForm">
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary" (click)="openForm()" *ngIf="!loading">
+            <button type="button" class="btn btn-primary-custom" (click)="openForm()" *ngIf="!loading">
                 <i class="fa fa-plus left"></i> Add Role</button>
             <loading class="float-right" text="Loading..." *ngIf="loading"></loading>
         </div>
@@ -15,12 +15,9 @@
                 <div class="col-sm-12 col-lg-6 mb-4">
                     <div class="card">
                         <div class="card-header">
-                            <h5>{{title}}</h5>
+                            <strong>{{title}}</strong>
                         </div>
                         <div class="card-body">
-                            <!-- <a class="btn btn-flat float-right" title="Close" (click)="closeForm()">
-                                    <i class="fa fa-close"></i>
-                                </a> -->
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="name" [(ngModel)]="role.name" required>
@@ -44,28 +41,20 @@
                     <div class="card fixed-height">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item bg-light">
-                                <span style="font-size: 18px">
-                                    <strong>Permissions</strong>
-                                </span>
-                                <!-- <div class="custom-control custom-checkbox float-right">
-                                    <input type="checkbox" id="all" class="custom-control-input" name="checkAll" [checked]="checkAll" (change)="selectAll($event)">
-                                    <label for="all" class="custom-control-label"></label>
-                                </div> -->
+                                <strong>Permissions</strong>
                                 <div class="form-check float-right">
-                                    <input class="form-check-input" type="checkbox" id="all" name="checkAll" [checked]="checkAll" (change)="selectAll($event)">
+                                    <input class="form-check-input" type="checkbox" id="all" name="checkAll" [checked]="checkAll"
+                                        (change)="selectAll($event)">
                                     <label class="form-check-label" for="all"></label>
                                 </div>
                             </li>
                             <li class="list-group-item" *ngFor="let perm of permissions">
                                 <div class="float-left">{{perm.name}}</div>
                                 <div class="form-check float-right">
-                                    <input type="checkbox" id="{{perm.name}}" class="form-check-input" name="checked" [checked]="perm.checked" (change)="selectOne(perm, $event)">
+                                    <input type="checkbox" id="{{perm.name}}" class="form-check-input" name="checked"
+                                        [checked]="perm.checked" (change)="selectOne(perm, $event)">
                                     <label class="form-check-label" for="all"></label>
                                 </div>
-                                <!-- <div class="custom-control custom-checkbox float-right">
-                                    <input type="checkbox" id="{{perm.name}}" class="custom-control-input" name="checked" [checked]="perm.checked" (change)="selectOne(perm, $event)">
-                                    <label for="{{perm.name}}" class="custom-control-label"></label>
-                                </div> -->
                             </li>
                         </ul>
                     </div>
