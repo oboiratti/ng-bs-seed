@@ -1,0 +1,40 @@
+<page-header title="Product List"></page-header>
+
+<div class="page-content">
+  <div class="row mb-4">
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-primary-custom"><i class="fa fa-plus"></i> Add Product</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card table-responsive-sm">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th class="table-index">#</th>
+              <th>Name</th>
+              <th>Code</th>
+              <th>Barcode</th>
+              <th>Category</th>
+              <th>Reorder Level</th>
+              <th>Maximum Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products; let i = index">
+              <td class="table-index">{{i + 1}}.</td>
+              <td>{{product.name}}</td>
+              <td>{{product.code}}</td>
+              <td>{{product.barcode}}</td>
+              <td>{{product.productCategory}}</td>
+              <td>{{product.reorderLevel}}</td>
+              <td>{{product.maximumStock}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

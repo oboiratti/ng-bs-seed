@@ -22,6 +22,7 @@ import { UserService } from './user/user.service';
 import { SettingsService } from './settings/settings.service';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { ProductsModule } from './products/products.module';
 
 @NgModule({
   declarations: [
@@ -42,9 +43,10 @@ import { SharedModule } from './shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CoreModule,
     SharedModule,
-    BlockUIModule.forRoot()
+    ProductsModule,
+    BlockUIModule.forRoot(),
+    CoreModule
   ],
   providers: [
     {provide: 'baseApi', useValue: 'api'},

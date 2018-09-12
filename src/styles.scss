@@ -3,6 +3,7 @@
 
 body {
     padding-top: 53px;
+    background-color: #f5f5f5;
 }
 
 label {
@@ -56,6 +57,10 @@ label {
 
 .pointer {
     cursor: pointer;
+}
+
+.table {
+    margin-bottom: 0!important
 }
 
 .table-index {

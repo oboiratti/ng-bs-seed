@@ -40,7 +40,7 @@ $navbar-color: linear-gradient(120deg, #3085d6, #f1a2a2);
 
     .nav {
         a {
-            color: #685757;
+            color: #728196;
             font-size: 14px;
             font-weight: 500;
             line-height: 35px;
@@ -49,16 +49,21 @@ $navbar-color: linear-gradient(120deg, #3085d6, #f1a2a2);
 
         i {
             margin-right: 20px;
+            color: #638dc9;
         }
     }
 
     li > a:hover {
-        color: #007bff!important;
+        color: #3a97f9!important;
     }
 
     .active {
-        border-right: solid 5px #007bff;
+        border-right: solid 5px #e4b7b8;
         background-color: rgba(0, 0, 0, 0.05);
+        
+        a {
+            color: #e65d5f!important;
+        }
     }
 }
 
