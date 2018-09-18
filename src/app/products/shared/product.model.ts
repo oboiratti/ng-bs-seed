@@ -14,3 +14,11 @@ export interface Product {
     maximumStock: string
     productCategory: ProductCategory
 }
+
+export interface ProductPackage {
+    id: number
+    package: any
+    description: string
+    quantity: number
+    price: number
+}

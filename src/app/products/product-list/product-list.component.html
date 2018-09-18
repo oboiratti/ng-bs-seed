@@ -3,7 +3,7 @@
 <div class="page-content">
   <div class="row mb-4">
     <div class="col-sm-12">
-      <button type="button" class="btn btn-primary-custom"><i class="fa fa-plus"></i> Add Product</button>
+      <button type="button" class="btn btn-primary-custom" (click)="openForm()"><i class="fa fa-plus"></i> Add Product</button>
     </div>
   </div>
 
@@ -23,12 +23,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of products; let i = index">
+            <tr *ngFor="let product of products; let i = index" class="pointer" (click)="editProduct(product.id)">
               <td class="table-index">{{i + 1}}.</td>
               <td>{{product.name}}</td>
               <td>{{product.code}}</td>
               <td>{{product.barcode}}</td>
-              <td>{{product.productCategory}}</td>
+              <td>{{product.productCategory.name}}</td>
               <td>{{product.reorderLevel}}</td>
               <td>{{product.maximumStock}}</td>
             </tr>

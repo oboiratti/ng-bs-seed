@@ -9,46 +9,47 @@ import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { Route } from "./shared/constants";
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: Route.login,
     component: LoginComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'dashboard',
+    path: Route.dashboard,
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'settings',
+    path: Route.settings,
     component: SettingsComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'settings/:model',
+    path: Route.genericSettings,
     component: GeneralLookupComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'admin',
+    path: Route.admin,
     component: AdminComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'users',
+    path: Route.users,
     component: UserComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'roles',
+    path: Route.roles,
     component: RoleComponent,
     canActivate: [AuthGuard],
   },
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: `/${Route.dashboard}`,
     pathMatch: 'full'
   },
   {

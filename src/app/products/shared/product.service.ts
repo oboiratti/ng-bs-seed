@@ -13,7 +13,20 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  get() {
+  getAll() {
     return this.httpClient.get<ResponseObject<Product[]>>(`${this.baseApi}/product`)
+  }
+
+  save(params: Product) {
+    if (params.id) return this.httpClient.put<ResponseObject<Product>>(`${this.baseApi}/product`, params)
+    return this.httpClient.post<ResponseObject<Product>>(`${this.baseApi}/product`, params)
+  }
+
+  getOne(id: number) {
+    return this.httpClient.get<ResponseObject<Product>>(`${this.baseApi}/product/${id}`)
+  }
+
+  remove(id: number) {
+    return this.httpClient.delete<ResponseObject<Product>>(`${this.baseApi}/product/${id}`)
   }
 }

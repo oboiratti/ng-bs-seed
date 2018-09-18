@@ -155,7 +155,7 @@ export class UserComponent implements OnInit {
 
   compareRoles(obj1: Role, obj2: Role): boolean {
     return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
-}
+  }
 
   private fetchRoles() {
     this.loading = true;

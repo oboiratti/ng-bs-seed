@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LookUps } from './settings.service';
+import { Route } from '../shared/constants';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,7 @@ export class SettingsComponent implements OnInit {
 
   gotoSetting(model) {
     if (model.route) this.router.navigate([model.route])
-    else this.router.navigate(['/settings', model.name])
+    else this.router.navigate([Route.settings, model.name])
   }
 
   private setModels() {

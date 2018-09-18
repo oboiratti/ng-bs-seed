@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/co
 import { Router } from '@angular/router';
 import { startWith, delay } from "rxjs/operators";
 import { AuthService } from './auth/auth.service';
+import { Route } from './shared/constants';
 
 export interface IMenuItem {
   label: string
@@ -52,12 +53,12 @@ export class AppComponent implements OnInit {
 
   private setMenuItems() {
     this.menus = [
-      { label: "Dashboard", route: "/dashboard", icon: "fa fa-dashboard fa-lg" },
-      { label: "Products", route: "/product", icon: "fa fa-tag fa-lg" },
-      { label: "Settings", route: "/settings", icon: "fa fa-cogs fa-lg" },
+      { label: "Dashboard", route: Route.dashboard, icon: "fa fa-dashboard fa-lg" },
+      { label: "Products", route: Route.product, icon: "fa fa-tag fa-lg" },
+      { label: "Settings", route: Route.settings, icon: "fa fa-cogs fa-lg" },
       // { label: "Admin", route: "/admin", icon: "fa fa-key fa-lg text-warning" },
-      { label: "Users", route: "/users", icon: "fa fa-users fa-lg" },
-      { label: "Roles", route: "/roles", icon: "fa fa-cubes fa-lg" }
+      { label: "Users", route: Route.users, icon: "fa fa-users fa-lg" },
+      { label: "Roles", route: Route.roles, icon: "fa fa-cubes fa-lg" }
     ];
   }
 }

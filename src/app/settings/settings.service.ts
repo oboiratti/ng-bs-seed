@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseObject } from '../shared/common-entities.model';
+import { environment } from '../../environments/environment';
 
 export class LookUps {
   static get models() {
@@ -17,8 +18,9 @@ export class LookUps {
 export class SettingsService {
 
   model: any;
+  baseApi = environment.apiUrl
 
-  constructor(private httpClient: HttpClient, @Inject('baseApi') private baseApi: string) { }
+  constructor(private httpClient: HttpClient) { }
 
   fetch(name: string) {
     return this.httpClient.get<ResponseObject<any>>(`${this.baseApi}/${name}`);
