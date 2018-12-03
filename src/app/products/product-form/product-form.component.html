@@ -1,0 +1,153 @@
+<page-header title="Product Form">
+  <!-- <a class="breadcrumb-item" routerLink="/product">Products</a>
+  <a class="breadcrumb-item">Form</a> -->
+</page-header>
+
+<div class="page-content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Product Form</strong>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="productForm">
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="name" [class.invalid-input]="productForm.controls.name.dirty && productForm.controls.name.invalid">
+                <div class="invalid-msg" *ngIf="productForm.controls.name.dirty && productForm.controls.name.errors">
+                  This field is required
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Description</label>
+                <input type="text" class="form-control" formControlName="description">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Number/Code</label>
+                <input type="text" class="form-control" formControlName="code" [class.invalid-input]="productForm.controls.code.dirty && productForm.controls.code.invalid">
+                <div class="invalid-msg" *ngIf="productForm.controls.code.dirty && productForm.controls.code.errors">
+                  This field is required
+                </div>
+              </div>
+
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Barcode</label>
+                <input type="text" class="form-control" formControlName="barcode">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Maximum Stock</label>
+                <input type="number" min="1" class="form-control" formControlName="maximumStock">
+              </div>
+
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Reorder Level</label>
+                <input type="number" min="0" class="form-control" formControlName="reorderLevel">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-6">
+                <label>Product Category</label>
+                <select class="form-control" formControlName="productCategory" [compareWith]="compareProducts"
+                  [class.invalid-input]="productForm.controls.productCategory.dirty && productForm.controls.productCategory.invalid">
+                  <option value="">Select Product Category</option>
+                  <option *ngFor="let cat of categories" [ngValue]="cat">{{cat.name}}</option>
+                </select>
+                <div class="invalid-msg" *ngIf="productForm.controls.productCategory.dirty && productForm.controls.productCategory.errors">
+                  This field is required
+                </div>
+              </div>
+            </div>
+            <hr>
+          </form>
+
+          <form [formGroup]="packageForm">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card table-responsive-sm">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="table-index">#</th>
+                        <th>Package</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <select class="form-control" formControlName="pakage" [compareWith]="compareProducts"
+                            [class.invalid-input]="packageForm.controls.pakage.dirty && packageForm.controls.pakage.invalid">
+                            <option value="">Select Package</option>
+                            <option *ngFor="let package of packages" [ngValue]="package">{{package.name}}</option>
+                          </select>
+                          <div class="invalid-msg" *ngIf="packageForm.controls.pakage.dirty && packageForm.controls.pakage.errors">
+                            This field is required
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" formControlName="description">
+                        </td>
+                        <td>
+                          <input type="number" min="1" class="form-control" formControlName="quantity"
+                            [class.invalid-input]="packageForm.controls.quantity.dirty && packageForm.controls.quantity.invalid">
+                          <div class="invalid-msg" *ngIf="packageForm.controls.quantity.dirty && packageForm.controls.quantity.errors">
+                            This field is required
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" min="1" class="form-control" formControlName="price"
+                            [class.invalid-input]="packageForm.controls.price.dirty && packageForm.controls.price.invalid">
+                          <div class="invalid-msg" *ngIf="packageForm.controls.price.dirty && packageForm.controls.price.errors">
+                            This field is required
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-primary-custom" [validate-form]="packageForm" (valid)="addPackage()"><i
+                              class="fa fa-plus"></i>
+                            Add</button>
+                        </td>
+                      </tr>
+                      <tr *ngFor="let productPackage of productPackages; let i = index">
+                        <td class="table-index">{{i + 1}}.</td>
+                        <td>{{productPackage.pakage.name}}</td>
+                        <td>{{productPackage.description}}</td>
+                        <td>{{productPackage.quantity}}</td>
+                        <td>{{productPackage.price}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-danger float-right" (click)="remove(productForm.controls.id.value)"
+            *ngIf="productForm.controls.id.value">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+          <button type="submit" class="btn btn-success" [validate-form]="productForm" (valid)="save()">
+            <i class="fa fa-save"></i> Save
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="closeForm()">
+            <i class="fa fa-close"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

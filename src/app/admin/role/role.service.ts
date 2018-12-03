@@ -14,9 +14,13 @@ export class RoleService{
   constructor(private httpClient: HttpClient) {}
 
     fetch() {
+<<<<<<< HEAD:src/app/admin/role/role.service.ts
       return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`).map(res => {
         if (res.success) return res.data
       });
+=======
+      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`);
+>>>>>>> 954bef8aaf5e71f637fb2b4ff27330c1d8187577:src/app/role/role.service.ts
     }
 
     permissions() {

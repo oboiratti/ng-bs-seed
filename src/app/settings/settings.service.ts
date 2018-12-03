@@ -6,10 +6,10 @@ import { environment } from 'src/environments/environment';
 export class LookUps {
   static get models() {
     return [
-      {label: "Title", description: "Add, Edit and Delete title", name: "title", icon: "fa fa-building text-warning"},
-      {label: "Marital Status", description: "Add, Edit and Delete Marital Status", name: "marital_status", icon: "fa fa-male text-primary"},
-      {label: "Educational Level", description: "Add, Edit and Delete Educational Level", name: "education_level", icon: "fa fa-graduation-cap text-danger"},
-      {label: "Type", description: "Add, Edit and Delete Type", name: "type", icon: "fa fa-bandcamp text-success"}
+      {label: "Product Category", description: "Add, Edit and Delete Product Category", name: "product_category", icon: "fa fa-building text-warning"},
+      {label: "Package", description: "Add, Edit and Delete Package", name: "package", icon: "fa fa-male text-primary"},
+      // {label: "Educational Level", description: "Add, Edit and Delete Educational Level", name: "education_level", icon: "fa fa-graduation-cap text-danger"},
+      // {label: "Type", description: "Add, Edit and Delete Type", name: "type", icon: "fa fa-bandcamp text-success"}
     ];
   }
 }
