@@ -1,4 +1,4 @@
-$navbar-color: linear-gradient(120deg, #3085d6, #f1a2a2);
+$navbar-color: #1976d2;
 
 .wrapper {
     display: flex;
@@ -17,7 +17,7 @@ $navbar-color: linear-gradient(120deg, #3085d6, #f1a2a2);
 
     .user-view {
         padding: 32px 10px;
-        background: $navbar-color;
+        background-color: $navbar-color;
     }
 
     .image {
@@ -40,7 +40,7 @@ $navbar-color: linear-gradient(120deg, #3085d6, #f1a2a2);
 
     .nav {
         a {
-            color: #728196;
+            color: #685757;
             font-size: 14px;
             font-weight: 500;
             line-height: 35px;
@@ -49,21 +49,16 @@ $navbar-color: linear-gradient(120deg, #3085d6, #f1a2a2);
 
         i {
             margin-right: 20px;
-            color: #638dc9;
         }
     }
 
     li > a:hover {
-        color: #3a97f9!important;
+        color: #007bff!important;
     }
 
     .active {
-        border-right: solid 5px #e4b7b8;
+        border-right: solid 5px #007bff;
         background-color: rgba(0, 0, 0, 0.05);
-        
-        a {
-            color: #e65d5f!important;
-        }
     }
 }
 
