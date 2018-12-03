@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/co
 import { Router } from '@angular/router';
 import { startWith, delay } from "rxjs/operators";
 import { AuthService } from './auth/auth.service';
+import { Route } from './shared/constants';
 
 export interface IMenuItem {
   label: string
@@ -55,8 +56,8 @@ export class AppComponent implements OnInit {
       { label: "Dashboard", route: "/dashboard", icon: "fa fa-dashboard fa-lg" },
       { label: "Settings", route: "/settings", icon: "fa fa-cogs fa-lg text-primary" },
       // { label: "Admin", route: "/admin", icon: "fa fa-key fa-lg text-warning" },
-      { label: "Users", route: "/users", icon: "fa fa-users fa-lg text-danger" },
-      { label: "Roles", route: "/roles", icon: "fa fa-cubes fa-lg text-success" }
+      { label: "Users", route: Route.users, icon: "fa fa-users fa-lg text-danger" },
+      { label: "Roles", route: Route.roles, icon: "fa fa-cubes fa-lg text-success" }
     ];
   }
 }

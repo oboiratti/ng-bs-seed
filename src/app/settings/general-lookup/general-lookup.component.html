@@ -1,53 +1,78 @@
-<page-header title="{{model.label}}">
-    <a class="btn btn-outline-secondary float-right" routerLink="/settings">
-        <i class="fa fa-arrow-left"></i> Back
-    </a>
-</page-header>
+<page-header title="{{model.label}}"></page-header>
 
-<!-- <div class="page-content">
-    <div class="row">
-        <button type="button" class="btn pink lighten-1" (click)="openForm()"><i class="fa fa-plus left"></i> Add {{model.label}}</button>
+<div class="page-content">
+    <div class="row mb-4" *ngIf="!showForm">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="openForm()" *ngIf="!loading">
+                <i class="fa fa-plus left"></i> Add {{model.label}}</button>
+            <a class="btn btn-outline-secondary float-right" routerLink="/settings">
+                <i class="fa fa-arrow-left"></i> Back
+            </a>
+            <loading class="float-right" text="Loading..." *ngIf="loading"></loading>
+        </div>
     </div>
 
-    <div class="row">
-        <p-dataTable [value]="records" [responsive]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15]" [loading]="loading"
-            loadingIcon="fa-spinner" selectionMode="single" [(selection)]="selectedRecord" (onRowSelect)="onRowSelect($event)">
-            <p-column header="#" styleClass="table-index">
-                <ng-template let-i="rowIndex" pTemplate="body">{{i + 1}}</ng-template>
-            </p-column>
-            <p-column field="name" header="Name" sortable="true"></p-column>
-            <p-column field="notes" header="Notes"></p-column>
-        </p-dataTable>
-
-        <form [formGroup]="formGroup" (ngSubmit)="save()">
-            <p-dialog header="{{title}}" [(visible)]="showForm" [responsive]="true" width="500" [modal]="true">
-                <div class="ui-grid ui-grid-responsive ui-fluid">
-                    <div class="ui-grid-row">
-                        <div class="input-field ui-grid-col-12">
-                            <input type="text" class="validate" formControlName="name">
-                            <label class="float-label">Name <i class="fa fa-asterisk red-text text-lighten-1"></i></label>
-                            <div class="alert alert-danger" *ngIf="formGroup.controls.name.touched && formGroup.controls.name.errors">
-                                Name is required
+    <div *ngIf="showForm">
+        <form [formGroup]="formGroup">
+            <div class="row">
+                <div class="col-sm-12 col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6>{{title}}</h6>
+                        </div>
+                        <div class="card-body">
+                            <!-- <a class="btn btn-flat float-right" title="Close" (click)="closeForm()">
+                                    <i class="fa fa-close"></i>
+                                </a> -->
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" formControlName="name" [class.invalid-input]="formGroup.controls.name.dirty && formGroup.controls.name.invalid">
+                                <div class="invalid-msg" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors">
+                                    This field is required
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="3" class="form-control" formControlName="description"></textarea>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="ui-grid-row">
-                        <div class="input-field ui-grid-col-12">
-                            <input type="text" formControlName="notes">
-                            <label class="float-label">Notes</label>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success" [validate-form]="formGroup" (valid)="save()">
+                                <i class="fa fa-save"></i> Save</button>
+                            <button type="button" class="btn btn-secondary" (click)="closeForm()">
+                                <i class="fa fa-close"></i> Cancel</button>
+                            <button type="button" class="btn btn-danger float-right" (click)="remove(formGroup.controls.id.value)"
+                                *ngIf="formGroup.controls.id.value">
+                                <i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
                 </div>
-
-                <p-footer>
-                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                        <button type="button" pButton class="ui-button-secondary" icon="fa-close" label="Cancel" (click)="closeForm()"></button>
-                        <button type="submit" pButton class="ui-button-success" icon="fa-save" label="Save"></button>
-                        <button type="button" pButton class="ui-button-danger left" icon="fa-trash" label="Delete" (click)="remove(formGroup.controls.id.value)" *ngIf="formGroup.controls.id.value"></button>
-                    </div>
-                </p-footer>
-            </p-dialog>
-        </form>
+            </div>
+        </form><br>
     </div>
-</div> -->
+
+    <div class="row" *ngIf="!loading">
+        <div class="col-sm-12">
+            <div class="card table-responsive-sm">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="table-index">#</th>
+                            <th>Name</th>
+                            <th *ngIf="modelName === 'tax_scheme'">Value</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let record of records; let i = index" class="pointer" (click)="selectRow(record)">
+                            <td class="table-index">{{i + 1}}.</td>
+                            <td>{{record.name}}</td>
+                            <td *ngIf="modelName === 'tax_scheme'">{{record.value}}</td>
+                            <td>{{record.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,17 +11,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { LoginComponent } from './auth/login.component';
-import { AdminComponent } from './admin/admin.component';
-import { UserComponent } from './user/user.component';
-import { RoleComponent } from './role/role.component';
 import { GeneralLookupComponent } from './settings/general-lookup/general-lookup.component';
 import { Interceptor } from './shared/interceptor';
 import { AuthService } from './auth/auth.service';
-import { RoleService } from './role/role.service';
-import { UserService } from './user/user.service';
 import { SettingsService } from './settings/settings.service';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { AdminModule } from './admin/admin.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -31,9 +28,6 @@ import { SharedModule } from './shared/shared.module';
     SettingsComponent,
     PageNotFoundComponent,
     LoginComponent,
-    AdminComponent,
-    UserComponent,
-    RoleComponent,
     GeneralLookupComponent
   ],
   imports: [
@@ -42,16 +36,16 @@ import { SharedModule } from './shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CoreModule,
     SharedModule,
+    AdminModule,
+    ProfileModule,
+    CoreModule,
     BlockUIModule.forRoot()
   ],
   providers: [
     {provide: 'baseApi', useValue: 'api'},
     {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
     AuthService,
-    RoleService,
-    UserService,
     SettingsService
   ],
   bootstrap: [AppComponent]

@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { User, UserQuery, Role } from '../auth/auth.model';
+import { User, UserQuery, Role } from '../../auth/auth.model';
 import { UserService } from './user.service';
 import { RoleService } from '../role/role.service';
-import { MessageDialog } from '../shared/message_helper';
+import { MessageDialog } from '../../shared/message_helper';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 declare var $:any;
 
@@ -21,8 +23,8 @@ export class UserComponent implements OnInit {
   saving: boolean;
   deleting: boolean;
 
-  users: User[]
-  roles: any[] = [];
+  users$: Observable<User[]>
+  roles$: Observable<Role[]>;
   userForm: FormGroup;
   user: User;
   selectedUser: User;
@@ -66,7 +68,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.fetchUsers();
-    // this.roles.push({ label: "Select Role", value: null });
     this.fetchRoles();
     // this.params = <UserQuery>{ page: 0, size: 5, sortField: "id", sortOrder: -1 };
   }
@@ -144,26 +145,17 @@ export class UserComponent implements OnInit {
   }
 
   fetchUsers() {
-    this.loading = true;
-    this.userService.fetch().subscribe((res) => {
-      this.loading = false;
-      if (res.success) {
-        this.users = res.data;
-      }
-    });
+    this.blockForm.start("Loading...")
+    this.users$ = this.userService.fetch().pipe(
+      finalize(() => this.blockForm.stop())
+    )
   }
 
   compareRoles(obj1: Role, obj2: Role): boolean {
     return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
-}
+  }
 
   private fetchRoles() {
-    this.loading = true;
-    this.roleService.fetch().subscribe((res) => {
-      this.loading = false;
-      if (res.success) {
-        this.roles = res.data;
-      }
-    });
+    this.roles$ = this.roleService.fetch()
   }
 }

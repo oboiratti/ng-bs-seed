@@ -6,11 +6,12 @@ $navbar-text-color: #fff;
 }
 
 .navbar-color {
-    background-color: $navbar-color !important;
+    background: $navbar-color !important;
     color: $navbar-text-color !important;
 
     .btn {
-        background-color: $navbar-color !important;
+        background-color: transparent!important;
+        border: none;
     }
 
     .nav-link {

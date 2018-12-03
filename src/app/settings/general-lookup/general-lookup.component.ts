@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LookUps, SettingsService } from '../settings.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MessageDialog } from '../../shared/message_helper';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-general-lookup',
@@ -22,12 +23,13 @@ export class GeneralLookupComponent implements OnInit {
   saving: boolean;
   deleting: boolean;
   selectedRecord: any;
+  @BlockUI() blockForm: NgBlockUI;
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private settingsService: SettingsService) {
     this.formGroup = this.formBuilder.group({
       id: new FormControl(''),
       name: new FormControl('', Validators.required),
-      notes: new FormControl('')
+      description: new FormControl('')
     });
   }
 
@@ -43,43 +45,44 @@ export class GeneralLookupComponent implements OnInit {
   }
 
   closeForm() {
+    this.title = "New " + this.model.label;
     this.showForm = false;
     this.formGroup.reset();
   }
 
-  onRowSelect(event) {
-    
+  selectRow(record: any) {
+    this.formGroup.patchValue(record)
+    this.title = "Edit " + this.model.label;
+    this.showForm = true;
   }
 
   save() {
     this.record = this.formGroup.value;
-    this.saving = true;
+    this.blockForm.start("Saving...");
     this.settingsService.save(this.modelName, this.record).subscribe((res) => {
-      this.saving = false;
+      this.blockForm.stop();
       if (res.success) {
-        this.showForm = false;
-        this.formGroup.reset();
+        this.closeForm()
         this.fetchRecords();
       }
     }, err => {
-      this.saving = false;
-      console.log("Error -> " + err.message);
+      this.blockForm.stop();
+      console.log("Error -> " + err);
     });
   }
 
   remove(id: number) {
-    MessageDialog.confirm("Delete Item", "Are you sure you want to delete this item").then((yes) => {
-      if (yes) {
-        this.deleting = true;
+    MessageDialog.confirm("Delete Item", "Are you sure you want to delete this item").then((confirm) => {
+      if (confirm.value) {
+        this.blockForm.start("Deleting...")
         this.settingsService.destroy(this.modelName, id).subscribe((res) => {
-          this.deleting = false;
+          this.blockForm.stop()
           if (res.success) {
-            this.showForm = false;
-            this.formGroup.reset();
+            this.closeForm()
             this.fetchRecords();
           }
         }, err => {
-          this.deleting = false;
+          this.blockForm.stop();
           console.log("Error -> " + err.message);
         });
       }
@@ -87,13 +90,12 @@ export class GeneralLookupComponent implements OnInit {
   }
 
   private fetchRecords() {
-    this.loading = true;
+    this.blockForm.start("Loading...");
     this.settingsService.fetch(this.model.name).subscribe((res) => {
-      this.loading = false;
+      this.blockForm.stop();
       if (res.success) {
         this.records = res.data;
       }
-    });
+    }, ()  => this.blockForm.stop());
   }
-
 }

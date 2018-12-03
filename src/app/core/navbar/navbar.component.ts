@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   @Input() authenticated: boolean
+  @Input() name: string
   @Output() toggle = new EventEmitter()
   @Output() logout = new EventEmitter()
 

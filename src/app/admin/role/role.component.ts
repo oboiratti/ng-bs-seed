@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from './role.service';
-import { Role } from '../auth/auth.model';
-import { MessageDialog } from '../shared/message_helper';
+import { Role } from '../../auth/auth.model';
+import { MessageDialog } from '../../shared/message_helper';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-role',
@@ -11,9 +13,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 })
 export class RoleComponent implements OnInit {
 
-  loading: boolean;
-
-  roles: Role[];
+  roles$: Observable<Role[]>;
   showForm: boolean;
   permissions: any[] = [];
   role = <Role>{};
@@ -52,11 +52,7 @@ export class RoleComponent implements OnInit {
       perm.checked = perms.includes(perm.name)
     });
 
-    if (perms.length == this.permissions.length) {
-      this.checkAll = true;
-    } else {
-      this.checkAll = false;
-    }
+    this.checkAll = perms.length === this.permissions.length
     this.showForm = true;
     console.log(perms.length, this.permissions.length);
   }
@@ -69,11 +65,7 @@ export class RoleComponent implements OnInit {
       if (perm.checked) cnt++;
     });
 
-    if (cnt == this.permissions.length) {
-      this.checkAll = true;
-    } else {
-      this.checkAll = false;
-    }
+    this.checkAll = cnt === this.permissions.length
   }
 
   selectAll(event) {
@@ -140,16 +132,10 @@ export class RoleComponent implements OnInit {
   }
 
   private fetchRoles() {
-    this.loading = true;
-    this.roleService.fetch().subscribe((res) => {
-      this.loading = false;
-      if (res.success) {
-        this.roles = res.data;
-      }
-    }, err => {
-      this.loading = false;
-      console.log("Error -> " + err.message);
-    });
+    this.blockForm.start("Loading...")
+    this.roles$ = this.roleService.fetch().pipe(
+      finalize(() => this.blockForm.stop())
+    )
   }
 
   private fetchPermissions() {

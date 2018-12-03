@@ -9,6 +9,7 @@ export interface User {
     email: string;
     token: string;
     role: Role;
+    image: string
 }
 
 export interface Role {

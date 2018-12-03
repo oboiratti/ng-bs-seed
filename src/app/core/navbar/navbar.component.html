@@ -1,5 +1,5 @@
 <nav class="navbar fixed-top navbar-expand navbar-dark navbar-color">
-  <a href="#" class="navbar-brand">App Name</a>
+  <a href="#" class="navbar-brand">IMS</a>
   <button class="btn btn-primary" type="button" *ngIf="authenticated" (click)="doToggle()">
     <i class="fa fa-bars"></i>
   </button>
@@ -7,13 +7,14 @@
     <ul class="navbar-nav ml-auto" *ngIf="authenticated">
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Welcome Admin
+          Welcome {{name}}
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdown1">
-          <a href="#" class="dropdown-item">Profile</a>
-          <a href="#" class="dropdown-item">Settings</a>
+          <a href="#" class="dropdown-item" routerLink="profile/profile-form"><i class="fa fa-id-card-o"></i> Profile</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item pointer" (click)="doLogout()">Logout</a>
+          <a href="#" class="dropdown-item" routerLink="settings"><i class="fa fa-cogs"></i> Settings</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item pointer" (click)="doLogout()"><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </li>
     </ul>

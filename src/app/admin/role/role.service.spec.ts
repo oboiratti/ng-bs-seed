@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '../../../node_modules/@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '../../../../node_modules/@angular/common/http/testing';
 
 import { RoleService } from './role.service';
-import { Role } from '../auth/auth.model';
+import { Role } from '../../auth/auth.model';
 
 describe('RoleService', () => {
   let roleService: RoleService

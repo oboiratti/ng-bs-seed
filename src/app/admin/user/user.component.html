@@ -3,17 +3,16 @@
 <div class="page-content">
     <div class="row mb-4" *ngIf="!showForm">
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary" (click)="openForm()" *ngIf="!loading" #openBtn>
+            <button type="button" class="btn btn-primary" (click)="openForm()">
                 <i class="fa fa-plus left"></i> Add User</button>
-            <loading class="float-right" text="Loading..." *ngIf="loading"></loading>
         </div>
     </div>
 
-    <div *ngIf="showForm">
+    <div class="col-sm-12 col-md-10 offset-md-1" *ngIf="showForm">
         <form [formGroup]="userForm">
             <div class="card">
                 <div class="card-header">
-                    <h5>User Form</h5>
+                    <strong>User Form</strong>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -63,7 +62,8 @@
                             <label>Password
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
-                            <input type="password" class="form-control" formControlName="password" [class.invalid-input]="userForm.controls.password.dirty && userForm.controls.password.invalid">
+                            <input type="password" class="form-control" formControlName="password"
+                                [class.invalid-input]="userForm.controls.password.dirty && userForm.controls.password.invalid">
                             <div class="invalid-msg" *ngIf="userForm.controls.password.dirty && userForm.controls.password.errors">
                                 <div *ngIf="userForm.controls.password.errors.required">
                                     This field is required
@@ -78,7 +78,8 @@
                             <label>Password Confirmation
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
-                            <input type="password" class="form-control" formControlName="passwordConfirmation" [class.invalid-input]="userForm.controls.passwordConfirmation.dirty && userForm.controls.passwordConfirmation.invalid">
+                            <input type="password" class="form-control" formControlName="passwordConfirmation"
+                                [class.invalid-input]="userForm.controls.passwordConfirmation.dirty && userForm.controls.passwordConfirmation.invalid">
                             <div class="invalid-msg">
                                 <div *ngIf="userForm.controls.passwordConfirmation.dirty && userForm.controls.passwordConfirmation.errors">
                                     This field is required
@@ -95,9 +96,10 @@
                             <label>Role
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
-                            <select class="form-control" formControlName="role" [compareWith]="compareRoles" [class.invalid-input]="userForm.controls.role.dirty && userForm.controls.role.invalid">
+                            <select class="form-control" formControlName="role" [compareWith]="compareRoles"
+                                [class.invalid-input]="userForm.controls.role.dirty && userForm.controls.role.invalid">
                                 <option value="">Select Role</option>
-                                <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
+                                <option *ngFor="let role of roles$ | async" [ngValue]="role">{{role.name}}</option>
                             </select>
                             <div class="invalid-msg" *ngIf="userForm.controls.role.dirty && userForm.controls.role.errors">
                                 This field is required
@@ -107,14 +109,15 @@
 
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-danger float-right" (click)="remove(userForm.controls.id.value)" *ngIf="userForm.controls.id.value">
+                    <button type="button" class="btn btn-danger float-right" (click)="remove(userForm.controls.id.value)"
+                        *ngIf="userForm.controls.id.value">
                         <i class="fa fa-trash"></i> Delete
-                    </button>
-                    <button type="button" class="btn btn-secondary" (click)="closeForm()">
-                        <i class="fa fa-close"></i> Cancel
                     </button>
                     <button type="submit" class="btn btn-success" [validate-form]="userForm" (valid)="save()">
                         <i class="fa fa-save"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="closeForm()">
+                        <i class="fa fa-close"></i> Cancel
                     </button>
                 </div>
             </div>
@@ -123,29 +126,31 @@
 
     <div class="row" *ngIf="!showForm && !loading">
         <div class="col-sm-12">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="table-index">#</th>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of users; let i = index" class="pointer" (click)="selectRow(user)">
-                            <td class="table-index">{{i + 1}}.</td>
-                            <td>{{user.name}}</td>
-                            <td>{{user.username}}</td>
-                            <td>{{user.email}}</td>
-                            <td>{{user.phoneNumber}}</td>
-                            <td>{{user.role.name}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="table-responsive-sm">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="table-index">#</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users$ | async; let i = index" class="pointer" (click)="selectRow(user)">
+                                <td class="table-index">{{i + 1}}.</td>
+                                <td>{{user.name}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.phoneNumber}}</td>
+                                <td>{{user.role.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

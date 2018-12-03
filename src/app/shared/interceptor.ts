@@ -34,7 +34,7 @@ export class Interceptor implements HttpInterceptor {
                             if (err.error.message === "No message available") {
                                 Toast.error(err.error.error);
                             }
-                            else Toast.error(err.error.message);
+                            else Toast.error(err.error.message || err.message);
                         }
                         else if (err.message) Toast.error(err.message);
                     }

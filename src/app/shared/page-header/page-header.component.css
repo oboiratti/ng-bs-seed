@@ -5,23 +5,19 @@
 } */
 
 .header-content {
-    padding: 14px;   
+    padding: 12px;   
 }
 
 .title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500
 }
 
 .header-breadcrumb {
     padding: 2px 0px;
-    margin-top: 6px;
+    /* margin-top: 6px; */
     margin-bottom: 0px;
     list-style: none;
     background-color: #fff;
     font-size: 13px;
-}
-
-.header-breadcrumb a:hover {
-    text-decoration: none;
 }

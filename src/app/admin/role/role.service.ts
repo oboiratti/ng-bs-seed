@@ -1,22 +1,26 @@
 import { Injectable, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ResponseObject } from '../shared/common-entities.model';
-import { Role } from '../auth/auth.model';
-import { environment } from '../../environments/environment';
+import { ResponseObject } from '../../shared/common-entities.model';
+import { Role } from '../../auth/auth.model';
+import { environment } from '../../../environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RoleService{
 
-  baseApi = environment.apiUrl
+  private baseApi = environment.apiUrl
  
   constructor(private httpClient: HttpClient) {}
 
     fetch() {
-      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/roles`);
+      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`).map(res => {
+        if (res.success) return res.data
+      });
     }
 
     permissions() {
-      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/permissions`);
+      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/role/permissions`);
     }
 
     save(role: Role) {
