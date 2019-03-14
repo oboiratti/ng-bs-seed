@@ -34,10 +34,10 @@ export class UserComponent implements OnInit {
   title = "Add New User";
   @BlockUI() blockForm: NgBlockUI;
 
-  filter = [
-    { label: "Name", value: { value: "name", type: "text" } },
-    { label: "Email", value: { value: "email", type: "text" } },
-    { label: "Username", value: { value: "username", type: "text" } }
+  filters = [
+    { label: "Name", value: "name", type: "text" },
+    { label: "Email", value: "email", type: "text" },
+    { label: "Username", value: "username", type: "text" }
   ]
 
   operation = [
@@ -112,10 +112,10 @@ export class UserComponent implements OnInit {
     this.userService.save(this.user).subscribe((res) => {
       this.saving = false;
       this.blockForm.stop();
-      if (res.success) {
+      //if (res.success) {
         this.closeForm()
         this.fetchUsers();
-      }
+      //}
     }, err => {
       this.blockForm.stop();
       console.log("Error -> " + err.message);
@@ -130,10 +130,10 @@ export class UserComponent implements OnInit {
         this.userService.destroy(id).subscribe((res) => {
           this.blockForm.stop();
           this.deleting = false;
-          if (res.success) {
+          //if (res.success) {
             this.closeForm()
             this.fetchUsers();
-          }
+          //}
         }, err => {
           this.blockForm.stop();
           console.log("Error -> " + err.message);

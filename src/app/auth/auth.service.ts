@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   authenticate(params: LoginParams) {
-    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/auth/login`, params)
+    return this.httpClient.post<User>(`${this.baseApi}/auth/login`, params)
   }
 
   invalidate() {

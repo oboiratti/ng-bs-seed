@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { startWith, delay } from "rxjs/operators";
 import { AuthService } from './auth/auth.service';
 import { Route } from './shared/constants';
+import { User } from './auth/auth.model';
 
 export interface IMenuItem {
   label: string
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   menus: IMenuItem[];
   loading: boolean;
   isLoggedIn: boolean
+  currentUser: User
 
   constructor(private router: Router, 
     private authService: AuthService) { }
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit {
     ).subscribe(value => {
       this.isLoggedIn = value
       console.log(value);
+      this.currentUser = value ? this.authService.currentUser : null
       
     })
   }

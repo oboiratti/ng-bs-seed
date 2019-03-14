@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { IMenuItem } from '../../app.component';
 import { AuthService } from '../../auth/auth.service';
+import { User } from 'src/app/auth/auth.model';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,6 +12,7 @@ export class SidenavComponent implements OnInit {
 
   @Input() authenticated: boolean
   @Input() menus: IMenuItem[]
+  @Input() currentUser: User
   @ViewChild('sidebar') sidebar: ElementRef
   @ViewChild('content') content: ElementRef
   @ViewChild('overlay') overlay: ElementRef
@@ -18,7 +20,7 @@ export class SidenavComponent implements OnInit {
   username: string;
   email: string;
 
-  constructor(private authService: AuthService, private renderer: Renderer2) { }
+  constructor(private authService: AuthService, private renderer: Renderer2) {}
 
   @HostListener('click')
   toggleOverlay() {
@@ -31,7 +33,7 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setUsername();
+    // this.setUsername();
   }
 
   toggle() {
@@ -47,11 +49,11 @@ export class SidenavComponent implements OnInit {
     }
   }
 
-  setUsername() {
-    let user = this.authService.currentUser;
-    if (user) {
-      this.username = user.name;
-      this.email = user.email
-    }
-  }
+  // setUsername() {
+  //   let user = this.authService.currentUser;
+  //   if (user) {
+  //     this.username = user.name;
+  //     this.email = user.email
+  //   }
+  // }
 }
