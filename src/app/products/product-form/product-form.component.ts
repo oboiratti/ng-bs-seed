@@ -54,20 +54,6 @@ export class ProductFormComponent implements OnInit {
     })
   }
 
-  getProduct(id: number) {
-    this.blockUi.start("Loading...")
-    this.productService.getOne(id).subscribe((res) => {
-      this.blockUi.stop()
-      if (res.success) {
-        this.productForm.patchValue(res.data)
-      }
-    })
-  }
-
-  compareProducts(obj1: Product, obj2: Product): boolean {
-    return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
-  }
-
   closeForm() {
     this.router.navigateByUrl(Route.product)
   }
@@ -93,6 +79,27 @@ export class ProductFormComponent implements OnInit {
     this.packageForm.reset()
   }
 
+  deletePackage(productPackage: ProductPackage, index: number) {
+    if (!productPackage.id) {
+      this.productPackages.splice(index, 1)
+      return;
+    }
+
+    MessageDialog.confirm("Delete Product Package", "Are you sure you want to delete this product package?").then(confirm => {
+      if (confirm.value) {
+        this.blockUi.start("Deleting...")
+        this.productService.deletePackage(productPackage.id.product, productPackage.id.pakage).subscribe((res) => {
+          this.blockUi.stop()
+          if (res.success) {
+            this.router.navigateByUrl(Route.product)
+          }
+        }, err => {
+          this.blockUi.stop()
+        })
+      }
+    })
+  }
+
   private buildForm() {
     this.productForm = this.fb.group({
       id: new FormControl(''),
@@ -100,18 +107,35 @@ export class ProductFormComponent implements OnInit {
       code: new FormControl('', Validators.required),
       barcode: new FormControl(''),
       description: new FormControl(''),
-      maximumStock: new FormControl(''),
-      reorderLevel: new FormControl(''),
-      productCategory: new FormControl('', Validators.required),
+      maximumStock: new FormControl(0),
+      reorderLevel: new FormControl(0),
+      profitMargin: new FormControl(0, Validators.compose([
+        Validators.required,
+        Validators.min(0),
+        Validators.max(1)
+      ])),
+      productCategory: new FormControl(null, Validators.required),
     })
 
     this.packageForm = this.fb.group({
-        // product: new FormControl({id: 28}),
-        pakage: new FormControl('', Validators.required),
+        pakage: new FormControl(null, Validators.required),
         description: new FormControl(),
         quantity: new FormControl('', Validators.required),
         price: new FormControl('', Validators.required)
       })
+  }
+
+  private getProduct(id: number) {
+    this.blockUi.start("Loading...")
+    this.productService.getOne(id).subscribe((product) => {
+      this.blockUi.stop()
+      // if (res.success) {
+        this.productForm.patchValue(product)
+        this.productPackages = product.packages
+      // }
+    }, err => {
+      this.blockUi.stop()
+    })
   }
 
   private loadCategories() {

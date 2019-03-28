@@ -30,15 +30,13 @@ export class LoginComponent implements OnInit {
   login(params: LoginParams) {
     this.loading = true;
     this.authService.authenticate(params).subscribe((res) => {
-        this.loading = false;
-        // if (res.success) {
-          this.authService.setUser(res);
-          this.authService.announceLogin(true)
-          this.router.navigate(['/dashboard']);
-        // }
-      }, err => {
-        this.loading = false;
-        this.loginForm.reset();
-      });
+      this.loading = false;
+      this.authService.setUser(res);
+      this.authService.announceLogin(true)
+      this.router.navigate(['/dashboard']);
+    }, err => {
+      this.loading = false;
+      this.loginForm.reset();
+    });
   }
 }

@@ -4,6 +4,8 @@ import { Product } from '../shared/product.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
 import { Route } from '../../shared/constants';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +14,8 @@ import { Route } from '../../shared/constants';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[]
+  products$: Observable<Product[]>
+
   @BlockUI() blockUi: NgBlockUI;
 
   constructor(private router: Router, private productService: ProductService) { }
@@ -25,19 +28,14 @@ export class ProductListComponent implements OnInit {
     this.router.navigateByUrl(Route.productForm)
   }
 
-  editProduct(id: number) {
-    this.router.navigate([Route.productForm, id])
+  viewProduct(id: number) {
+    this.router.navigate([Route.productDetailsView, id])
   }
 
   private getProducts() {
     this.blockUi.start("Loading...")
-    this.productService.getAll().subscribe((res) => {
-      this.blockUi.stop()
-      if (res.success) {
-        this.products = res.data
-      }
-    }, err => {
-      this.blockUi.stop()
-    })
+    this.products$ = this.productService.getAll().pipe(
+      finalize(() => this.blockUi.stop())
+    )
   }
 }

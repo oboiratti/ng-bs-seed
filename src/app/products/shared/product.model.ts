@@ -13,11 +13,12 @@ export interface Product {
     reorderLevel: string
     maximumStock: string
     productCategory: ProductCategory
+    packages: ProductPackage[]
 }
 
 export interface ProductPackage {
-    id: number
-    package: any
+    id: any
+    pakage: any
     description: string
     quantity: number
     price: number

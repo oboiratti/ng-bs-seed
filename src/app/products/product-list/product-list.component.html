@@ -9,31 +9,35 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <div class="card table-responsive-sm">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th class="table-index">#</th>
-              <th>Name</th>
-              <th>Code</th>
-              <th>Barcode</th>
-              <th>Category</th>
-              <th>Reorder Level</th>
-              <th>Maximum Stock</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let product of products; let i = index" class="pointer" (click)="editProduct(product.id)">
-              <td class="table-index">{{i + 1}}.</td>
-              <td>{{product.name}}</td>
-              <td>{{product.code}}</td>
-              <td>{{product.barcode}}</td>
-              <td>{{product.productCategory.name}}</td>
-              <td>{{product.reorderLevel}}</td>
-              <td>{{product.maximumStock}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card">
+        <div class="table-responsive card-table-sm">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="table-index">#</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Barcode</th>
+                    <th>Category</th>
+                    <th>Reorder Level</th>
+                    <th>Maximum Stock</th>
+                    <th>Profit Margin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of products$ | async; let i = index" class="pointer" (click)="viewProduct(product.id)">
+                    <td data-th="#" class="table-index">{{i + 1}}.</td>
+                    <td data-th="Name">{{product.name}}</td>
+                    <td data-th="Code">{{product.code}}</td>
+                    <td data-th="Barcode">{{product.barcode}}</td>
+                    <td data-th="Category">{{product.productCategory}}</td>
+                    <td data-th="Reorder Level">{{product.reorderLevel}}</td>
+                    <td data-th="Maximum Stock">{{product.maximumStock}}</td>
+                    <td data-th="Profit Margin">{{product.profitMargin * 100}}%</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
       </div>
     </div>
   </div>

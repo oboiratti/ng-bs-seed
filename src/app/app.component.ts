@@ -56,9 +56,9 @@ export class AppComponent implements OnInit {
 
   private setMenuItems() {
     this.menus = [
-      { label: "Dashboard", route: "/dashboard", icon: "fa fa-dashboard fa-lg" },
-      { label: "Settings", route: "/settings", icon: "fa fa-cogs fa-lg text-primary" },
-      // { label: "Admin", route: "/admin", icon: "fa fa-key fa-lg text-warning" },
+      { label: "Dashboard", route: Route.dashboard, icon: "fa fa-dashboard fa-lg" },
+      { label: "Product", route: Route.product, icon: "fa fa-tag fa-lg text-warning" },
+      { label: "Settings", route: Route.settings, icon: "fa fa-cogs fa-lg text-primary" },
       { label: "Users", route: Route.users, icon: "fa fa-users fa-lg text-danger" },
       { label: "Roles", route: Route.roles, icon: "fa fa-cubes fa-lg text-success" }
     ];

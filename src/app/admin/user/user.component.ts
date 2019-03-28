@@ -9,7 +9,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-user',
@@ -31,20 +31,13 @@ export class UserComponent implements OnInit {
   params: UserQuery;
   totalRecords: number;
   selectedFilter: any;
-  title = "Add New User";
+  title = 'Add New User';
   @BlockUI() blockForm: NgBlockUI;
 
   filters = [
-    { label: "Name", value: "name", type: "text" },
-    { label: "Email", value: "email", type: "text" },
-    { label: "Username", value: "username", type: "text" }
-  ]
-
-  operation = [
-    { label: "=", value: "=" },
-    { label: ">", value: ">" },
-    { label: "<", value: "<" },
-    { label: ":", value: ":" }
+    { label: 'Name', value: 'name', type: 'text' },
+    { label: 'Email', value: 'email', type: 'text' },
+    { label: 'Username', value: 'username', type: 'text' }
   ]
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private roleService: RoleService) {
@@ -52,7 +45,11 @@ export class UserComponent implements OnInit {
       id: new FormControl(''),
       name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')),
-      phoneNumber: new FormControl(''),
+      phoneNumber: new FormControl('', Validators.compose([
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern('^[0]+[0-9]{9}$')
+      ])),
       username: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
@@ -75,24 +72,24 @@ export class UserComponent implements OnInit {
   openForm() {
     this.showForm = true;
     // this.userForm.reset();
-    this.userForm.get("username").enable();
+    this.userForm.get('username').enable();
   }
 
   closeForm() {
-    this.title = "Add New User";
+    this.title = 'Add New User';
     this.showForm = false;
     // this.closeBtn.nativeElement.click();
     this.userForm.reset();
   }
 
   checkPasswords(formGroup: FormGroup) {
-    if (!formGroup.controls) return null;
+    if (!formGroup.controls) { return null; }
     return formGroup.controls['password'].value === formGroup.controls['passwordConfirmation'].value ? null : { passwordMismatch: true }
   }
 
   selectRow(user: User) {
     this.userForm.patchValue(user);
-    this.userForm.get("username").disable();
+    this.userForm.get('username').disable();
     this.userForm.get('password').setValidators(null)
     this.userForm.get('passwordConfirmation').setValidators(null)
     this.userForm.updateValueAndValidity()
@@ -107,36 +104,34 @@ export class UserComponent implements OnInit {
       delete this.user.passwordConfirmation;
     }
 
-    this.blockForm.start("Saving...");
+    this.blockForm.start('Saving...');
     this.saving = true;
     this.userService.save(this.user).subscribe((res) => {
       this.saving = false;
       this.blockForm.stop();
-      //if (res.success) {
-        this.closeForm()
-        this.fetchUsers();
-      //}
+      this.closeForm()
+      this.fetchUsers();
     }, err => {
       this.blockForm.stop();
-      console.log("Error -> " + err.message);
+      console.log('Error -> ' + err.message);
     });
   }
 
   remove(id: number) {
-    MessageDialog.confirm("Delete User", "Are you sure you want to delete this user").then((confirm) => {
+    MessageDialog.confirm('Delete User', 'Are you sure you want to delete this user').then((confirm) => {
       if (confirm.value) {
-        this.blockForm.start("Deleting...");
+        this.blockForm.start('Deleting...');
         this.deleting = true;
         this.userService.destroy(id).subscribe((res) => {
           this.blockForm.stop();
           this.deleting = false;
-          //if (res.success) {
-            this.closeForm()
-            this.fetchUsers();
-          //}
+          // if (res.success) {
+          this.closeForm()
+          this.fetchUsers();
+          // }
         }, err => {
           this.blockForm.stop();
-          console.log("Error -> " + err.message);
+          console.log('Error -> ' + err.message);
         });
       }
     }).catch((err) => {
@@ -145,7 +140,7 @@ export class UserComponent implements OnInit {
   }
 
   fetchUsers() {
-    this.blockForm.start("Loading...")
+    this.blockForm.start('Loading...')
     this.users$ = this.userService.fetch().pipe(
       finalize(() => this.blockForm.stop())
     )
@@ -154,6 +149,8 @@ export class UserComponent implements OnInit {
   compareRoles(obj1: Role, obj2: Role): boolean {
     return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
   }
+
+  get phoneNumber() { return this.userForm.get('phoneNumber') }
 
   private fetchRoles() {
     this.roles$ = this.roleService.fetch()

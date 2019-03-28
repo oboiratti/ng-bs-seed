@@ -1,0 +1,77 @@
+<page-header title="Product Details">
+  <a class="breadcrumb-item" routerLink="/product">Products</a>
+  <a class="breadcrumb-item">Details</a>
+</page-header>
+
+<div class="page-content" *ngIf="product$ | async as product">
+  <div class="row">
+    <div class="col-sm-12 col-md-10 offset-md-1">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              <strong>Details</strong>
+              <button type="button" class="btn btn-danger btn-sm rounded-circle float-right" (click)="closeForm()">
+                <i class="fa fa-close"></i>
+              </button>
+              <button type="submit" class="btn btn-primary-custom btn-sm rounded-circle float-right" (click)="editProduct(product.id)">
+                <i class="fa fa-edit"></i>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12 col-md-4">
+                  Product Name: <br> <strong>{{product.name}}</strong>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  Product Number: <br> <strong>{{product.code}}</strong>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  Barcode: <br> <strong>{{product.barcode}}</strong>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-4">
+                  Category: <br> <strong>{{product.productCategory.name}}</strong>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  Maximum Stock: <br> <strong>{{product.maximumStock}}</strong>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  Reorder Level: <br> <strong>{{product.reorderLevel}}</strong>
+                </div>
+              </div>
+              <hr><br>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <h6 class="card-subtitle mb-2 text-muted">Packages</h6>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngFor="let p of product.packages">
+                      {{p.pakage.name}} ({{p.quantity}}) - {{p.price | currency:'GHS '}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-12 col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <strong>Packages</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let p of product.packages">
+                {{p.pakage.name}} ({{p.quantity}}) - {{p.price | currency:'GHS '}}
+              </li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
