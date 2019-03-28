@@ -15,10 +15,10 @@ export class ProfileService {
   constructor(private httpClient: HttpClient) { }
 
   updateProfile(params: Profile) {
-    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/auth/updateprofile`, params)
+    return this.httpClient.post<User>(`${this.baseApi}/auth/updateprofile`, params)
   }
 
   changePassword(params: ChangePasswordParams) {
-    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/auth/change-password`, params)
+    return this.httpClient.post<void>(`${this.baseApi}/auth/change-password`, params)
   }
 }

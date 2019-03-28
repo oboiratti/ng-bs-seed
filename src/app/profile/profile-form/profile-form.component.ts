@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ProfileService } from '../shared/profile.service';
+import { Toast } from 'src/app/shared/message_helper';
 
 @Component({
   selector: 'app-profile-form',
@@ -41,12 +42,13 @@ export class ProfileFormComponent implements OnInit {
 
   updateProfile() {
     const params = this.profileForm.value
-    this.blockUi.start("Updating Profile...")
+    this.blockUi.start('Updating Profile...')
     this.profileService.updateProfile(params).subscribe((res) => {
       this.blockUi.stop()
-      if (res.success) {
-        this.authService.setUser(res.data)
-      }
+      // if (res.success) {
+        this.authService.setUser(res)
+        Toast.success('Profile updated successfully')
+      // }
     }, err => {
       this.blockUi.stop()
     })

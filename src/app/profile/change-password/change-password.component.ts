@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ProfileService } from '../shared/profile.service';
+import { Toast } from 'src/app/shared/message_helper';
 
 @Component({
   selector: 'app-change-password',
@@ -26,9 +27,10 @@ export class ChangePasswordComponent implements OnInit {
     this.blockUi.start("Saving...")
     this.profileService.changePassword(params).subscribe((res) => {
       this.blockUi.stop()
-      if (res.success) {
+      // if (res.success) {
         this.passwordForm.reset()
-      }
+        Toast.success('Password changed successfully')
+      // }
     }, err => {
       this.blockUi.stop()
     })
