@@ -4,7 +4,7 @@ import { Injectable, Inject } from '@angular/core';
 import { User, LoginParams } from "./auth.model";
 import { ResponseObject } from "../shared/common-entities.model";
 import { HttpClient } from "@angular/common/http";
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable()

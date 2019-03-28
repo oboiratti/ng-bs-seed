@@ -1,3 +1,4 @@
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -14,9 +15,9 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   getAll() {
-    return this.httpClient.get<ResponseObject<Product[]>>(`${this.baseApi}/product`).map(res => {
+    return this.httpClient.get<ResponseObject<Product[]>>(`${this.baseApi}/product`).pipe(map(res => {
       if (res.success) return res.data
-    })
+    }))
   }
 
   save(params: Product) {
@@ -25,9 +26,9 @@ export class ProductService {
   }
 
   getOne(id: number) {
-    return this.httpClient.get<ResponseObject<Product>>(`${this.baseApi}/product/${id}`).map(res => {
+    return this.httpClient.get<ResponseObject<Product>>(`${this.baseApi}/product/${id}`).pipe(map(res => {
       if (res.success) return res.data
-    })
+    }))
   }
 
   remove(id: number) {
@@ -39,9 +40,9 @@ export class ProductService {
   }
 
   getProductPackages(productId: number) {
-    return this.httpClient.get<ResponseObject<any>>(`${this.baseApi}/product/get-product-packages?productId=${productId}`)
-      .map(res => {
+    return this.httpClient.get<ResponseObject<any>>(`${this.baseApi}/product/get-product-packages?productId=${productId}`).pipe(
+      map(res => {
         if (res.success) return res.data
-      })
+      }))
   }
 }

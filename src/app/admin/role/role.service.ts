@@ -1,3 +1,4 @@
+import {map} from 'rxjs/operators';
 import { Injectable, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseObject } from '../../shared/common-entities.model';
@@ -14,9 +15,9 @@ export class RoleService{
   constructor(private httpClient: HttpClient) {}
 
     fetch() {
-      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`).map(res => {
+      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`).pipe(map(res => {
         if (res.success) return res.data
-      });
+      }));
     }
 
     permissions() {
