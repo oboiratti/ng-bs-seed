@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageHeaderComponent } from './page-header/page-header.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { ReactiveFormsModule, FormsModule } from '../../../node_modules/@angular/forms';
 import { ValidateFormDirective } from './directives/validate-form.directive';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './components/search/search.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FilterComponent } from './components/filter/filter.component';
+import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.component';
+import { ReportFilterComponent } from './components/report-filter/report-filter.component';
 
 @NgModule({
   imports: [
@@ -15,15 +18,21 @@ import { NgSelectModule } from '@ng-select/ng-select';
   declarations: [
     PageHeaderComponent,
     ValidateFormDirective,
-    SearchComponent
+    SearchComponent,
+    FilterComponent,
+    DynamicTableComponent,
+    ReportFilterComponent
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
     PageHeaderComponent,
     ValidateFormDirective,
     SearchComponent,
     NgSelectModule,
-    FormsModule,
-    ReactiveFormsModule
+    FilterComponent,
+    DynamicTableComponent,
+    ReportFilterComponent
   ]
 })
 export class SharedModule { }
