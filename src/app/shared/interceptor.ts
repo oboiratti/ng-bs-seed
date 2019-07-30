@@ -25,7 +25,7 @@ export class Interceptor implements HttpInterceptor {
       .pipe(
         tap((response: HttpResponse<any>) => {
           if (response.status === 200 && req.method !== 'GET') {
-            if (response.body.message) { Toast.show(response.body.message, true); }
+            if (response.body && response.body.message) { Toast.show(response.body.message, true); }
           }
         }, err => {
           console.log(err);

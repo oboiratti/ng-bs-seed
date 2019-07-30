@@ -13,9 +13,9 @@ export class SidenavComponent implements OnInit {
   @Input() authenticated: boolean
   @Input() menus: IMenuItem[]
   @Input() currentUser: User
-  @ViewChild('sidebar') sidebar: ElementRef
-  @ViewChild('content') content: ElementRef
-  @ViewChild('overlay') overlay: ElementRef
+  @ViewChild('sidebar', { static: false }) sidebar: ElementRef
+  @ViewChild('content', { static: true }) content: ElementRef
+  @ViewChild('overlay', { static: true }) overlay: ElementRef
   show: boolean
   username: string;
   email: string;

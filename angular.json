@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-bootstrap-jseed": {
+    "ng-bs-seed": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-bootstrap-jseed",
+            "outputPath": "dist/ng-bs-seed",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,19 +61,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-bootstrap-jseed:build",
+            "browserTarget": "ng-bs-seed:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-bootstrap-jseed:build:production"
+              "browserTarget": "ng-bs-seed:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-bootstrap-jseed:build"
+            "browserTarget": "ng-bs-seed:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "angular-bootstrap-jseed-e2e": {
+    "ng-bs-seed-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -115,11 +115,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-bootstrap-jseed:serve"
+            "devServerTarget": "ng-bs-seed:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-bootstrap-jseed:serve:production"
+              "devServerTarget": "ng-bs-seed:serve:production"
             }
           }
         },
@@ -135,10 +135,13 @@
       }
     }
   },
-  "defaultProject": "angular-bootstrap-jseed",
+  "defaultProject": "ng-bs-seed",
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"
+    },
+    "@schematics/angular:module": {
+      "spec": false
     }
   }
 }

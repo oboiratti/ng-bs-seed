@@ -1,4 +1,4 @@
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Injectable, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseObject } from '../../shared/common-entities.model';
@@ -8,28 +8,26 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService{
+export class RoleService {
 
   private baseApi = environment.apiUrl
- 
-  constructor(private httpClient: HttpClient) {}
 
-    fetch() {
-      return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/role`).pipe(map(res => {
-        if (res.success) return res.data
-      }));
-    }
+  constructor(private httpClient: HttpClient) { }
 
-    permissions() {
-      return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/role/permissions`);
-    }
+  fetch() {
+    return this.httpClient.get<Role[]>(`${this.baseApi}/role`)
+  }
 
-    save(role: Role) {
-      if (role.id) return this.httpClient.put<ResponseObject<Role>>(`${this.baseApi}/role`, role);
-      return this.httpClient.post<ResponseObject<Role>>(`${this.baseApi}/role`, role);
-    }
+  permissions() {
+    return this.httpClient.get<any[]>(`${this.baseApi}/role/permissions`);
+  }
 
-    destroy(id: number) {
-      return this.httpClient.delete<ResponseObject<Role>>(`${this.baseApi}/role/${id}`);
-    }
+  save(role: Role) {
+    if (role.id) { return this.httpClient.put<void>(`${this.baseApi}/role`, role); }
+    return this.httpClient.post<void>(`${this.baseApi}/role`, role);
+  }
+
+  destroy(id: number) {
+    return this.httpClient.delete<ResponseObject<Role>>(`${this.baseApi}/role/${id}`);
+  }
 }
