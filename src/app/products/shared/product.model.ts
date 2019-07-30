@@ -1,3 +1,5 @@
+import { ModelQuery } from 'src/app/shared/common-entities.model';
+
 export interface ProductCategory {
     id: number
     name: string
@@ -22,4 +24,9 @@ export interface ProductPackage {
     description: string
     quantity: number
     price: number
+}
+
+export interface ProductQuery extends ModelQuery {
+    name: string
+    code: string
 }

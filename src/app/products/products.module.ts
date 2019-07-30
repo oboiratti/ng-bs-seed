@@ -13,11 +13,12 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
   imports: [
     CommonModule,
     SharedModule,
-    NgSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
     ProductsRoutingModule
   ],
-  declarations: [ProductListComponent, ProductFormComponent, ProductDetailsComponent]
+  declarations: [
+    ProductListComponent,
+    ProductFormComponent,
+    ProductDetailsComponent
+  ]
 })
 export class ProductsModule { }

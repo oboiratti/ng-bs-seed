@@ -141,7 +141,7 @@
                                 </div>
                               </td>
                               <td>
-                                <button type="button" class="btn btn-outline-primary-custom btn-sm rounded-circle mt-1" [validate-form]="packageForm"
+                                <button type="button" class="btn btn-outline-primary-custom btn-sm rounded-circle mt-1" [validateForm]="packageForm"
                                   (valid)="addPackage()"><i class="fa fa-plus"></i>
                                 </button>
                               </td>
@@ -159,7 +159,7 @@
             *ngIf="productForm.controls.id.value">
             <i class="fa fa-trash"></i> Delete
           </button>
-          <button type="submit" class="btn btn-success" [validate-form]="productForm" (valid)="save()">
+          <button type="submit" class="btn btn-success" [validateForm]="productForm" (valid)="save()">
             <i class="fa fa-save"></i> Save
           </button>
           <button type="button" class="btn btn-secondary" (click)="closeForm()">

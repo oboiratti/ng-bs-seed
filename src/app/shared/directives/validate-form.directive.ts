@@ -2,11 +2,12 @@ import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/c
 import { FormGroup } from '@angular/forms';
 
 @Directive({
-  selector: '[validate-form]'
+  // tslint:disable-next-line: directive-selector
+  selector: '[validateForm]'
 })
 export class ValidateFormDirective {
 
-  @Input('validate-form') form: FormGroup
+  @Input('validateForm') form: FormGroup
   @Output() valid = new EventEmitter<void>()
 
   constructor() {}

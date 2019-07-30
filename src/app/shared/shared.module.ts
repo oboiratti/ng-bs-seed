@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '../../../node_modules/@angular
 import { ValidateFormDirective } from './directives/validate-form.directive';
 import { SearchComponent } from './components/search/search.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { FilterComponent } from './components/filter/filter.component';
 import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.component';
 import { ReportFilterComponent } from './components/report-filter/report-filter.component';
@@ -13,7 +14,8 @@ import { ReportFilterComponent } from './components/report-filter/report-filter.
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   declarations: [
     PageHeaderComponent,
@@ -30,6 +32,7 @@ import { ReportFilterComponent } from './components/report-filter/report-filter.
     ValidateFormDirective,
     SearchComponent,
     NgSelectModule,
+    NgbPaginationModule,
     FilterComponent,
     DynamicTableComponent,
     ReportFilterComponent

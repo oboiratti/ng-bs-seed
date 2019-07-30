@@ -20,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { ProfileModule } from './profile/profile.module';
 import { ProductsModule } from './products/products.module';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ProductsModule } from './products/products.module';
     AdminModule,
     ProfileModule,
     ProductsModule,
+    ReportModule,
     CoreModule,
     BlockUIModule.forRoot()
   ],

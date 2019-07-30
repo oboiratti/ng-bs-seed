@@ -3,7 +3,14 @@
 <div class="page-content">
   <div class="row mb-4">
     <div class="col-sm-12">
-      <button type="button" class="btn btn-primary-custom" (click)="openForm()"><i class="fa fa-plus"></i> Add Product</button>
+      <button type="button" class="btn btn-primary-custom" (click)="openForm()"><i class="fa fa-plus"></i> Add
+        Product</button>
+      <filter class="float-right" placeholder="Search by product name" label="name" [model]="name"
+        (search)="getProducts($event)" [filter]="filter">
+        <div class="form-group">
+          <input type="text" class="form-control" name="code" placeholder="Code" [(ngModel)]="filter.code">
+        </div>
+      </filter>
     </div>
   </div>
 
@@ -11,34 +18,52 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="table-responsive card-table-sm">
-            <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th class="table-index">#</th>
-                    <th>Name</th>
-                    <th>Code</th>
-                    <th>Barcode</th>
-                    <th>Category</th>
-                    <th>Reorder Level</th>
-                    <th>Maximum Stock</th>
-                    <th>Profit Margin</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let product of products$ | async; let i = index" class="pointer" (click)="viewProduct(product.id)">
-                    <td data-th="#" class="table-index">{{i + 1}}.</td>
-                    <td data-th="Name">{{product.name}}</td>
-                    <td data-th="Code">{{product.code}}</td>
-                    <td data-th="Barcode">{{product.barcode}}</td>
-                    <td data-th="Category">{{product.productCategory}}</td>
-                    <td data-th="Reorder Level">{{product.reorderLevel}}</td>
-                    <td data-th="Maximum Stock">{{product.maximumStock}}</td>
-                    <td data-th="Profit Margin">{{product.profitMargin * 100}}%</td>
-                  </tr>
-                </tbody>
-              </table>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="table-index">#</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Barcode</th>
+                <th>Category</th>
+                <th>Reorder Level</th>
+                <th>Maximum Stock</th>
+                <th>Profit Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products$ | async; let i = index" class="pointer"
+                (click)="viewProduct(product.id)">
+                <td data-th="#" class="table-index">{{((currentPage - 1) * size) + i + 1}}.</td>
+                <td data-th="Name">{{product.name}}</td>
+                <td data-th="Code">{{product.code}}</td>
+                <td data-th="Barcode">{{product.barcode}}</td>
+                <td data-th="Category">{{product.productCategory}}</td>
+                <td data-th="Reorder Level">{{product.reorderLevel}}</td>
+                <td data-th="Maximum Stock">{{product.maximumStock}}</td>
+                <td data-th="Profit Margin">{{product.profitMargin * 100}}%</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-3">
+      <div class="input-group mb-3 float-left">
+        <div class="input-group-prepend">
+          <label class="input-group-text">Records per page</label>
+        </div>
+        <select class="custom-select" [(ngModel)]="size" (ngModelChange)="pageSizeChangeEvent()">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">{{size}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <ngb-pagination class="float-right" [(page)]="currentPage" [pageSize]="size" [collectionSize]="totalRecords"
+       [maxSize]="5"  (pageChange)="pageChanged($event)"></ngb-pagination>
     </div>
   </div>
 </div>

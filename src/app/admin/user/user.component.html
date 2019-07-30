@@ -130,7 +130,7 @@
                         (click)="remove(userForm.controls.id.value)" *ngIf="userForm.controls.id.value">
                         <i class="fa fa-trash"></i> Delete
                     </button>
-                    <button type="submit" class="btn btn-success" [validate-form]="userForm" (valid)="save()">
+                    <button type="submit" class="btn btn-success" [validateForm]="userForm" (valid)="save()">
                         <i class="fa fa-save"></i> Save
                     </button>
                     <button type="button" class="btn btn-secondary" (click)="closeForm()">
