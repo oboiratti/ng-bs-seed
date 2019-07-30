@@ -1,6 +1,9 @@
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent } from '@angular/common/http';
+import {
+  HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent,
+  HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -13,7 +16,7 @@ export class Interceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent
-  | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
+    | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
     const currentUser: User = JSON.parse(localStorage.getItem('currentUser'));
     let authReq = req.clone();
     if (currentUser) {
@@ -39,5 +42,4 @@ export class Interceptor implements HttpInterceptor {
         )
       );
   }
-
 }

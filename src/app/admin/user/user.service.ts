@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ResponseObject } from '../../shared/common-entities.model';
 import { User, UserQuery } from '../../auth/auth.model';
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,12 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   fetch() {
-    return this.httpClient.get<User[]>(`${this.baseApi}/auth/users`)
+    return this.httpClient.get<ResponseObject<User[]>>(`${this.baseApi}/account/getusers`)
+      .pipe(
+        map(res => {
+          if (res.success) { return res.data }
+        })
+      );
   }
 
   query(params: UserQuery) {
@@ -22,11 +28,11 @@ export class UserService {
   }
 
   save(params: User) {
-    if (params.id)  return this.httpClient.put<ResponseObject<User>>(`${this.baseApi}/auth/updateuser`, params);
-    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/auth/createuser`, params);
+    if (params.id) { return this.httpClient.put<ResponseObject<User>>(`${this.baseApi}/account/updateuser`, params); }
+    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/account/createuser`, params);
   }
 
   destroy(id: number) {
-    return this.httpClient.delete<ResponseObject<User>>(`${this.baseApi}/auth/user/${id}`);
+    return this.httpClient.delete<ResponseObject<User>>(`${this.baseApi}/account/deleteuser?id=${id}`);
   }
 }

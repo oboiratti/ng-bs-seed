@@ -15,19 +15,23 @@ export class RoleService {
   constructor(private httpClient: HttpClient) { }
 
   fetch() {
-    return this.httpClient.get<Role[]>(`${this.baseApi}/role`)
+    return this.httpClient.get<ResponseObject<Role[]>>(`${this.baseApi}/profile/get`)
+      .pipe(
+        map(res => {
+          if (res.success) { return res.data }
+        }));
   }
 
   permissions() {
-    return this.httpClient.get<any[]>(`${this.baseApi}/role/permissions`);
+    return this.httpClient.get<ResponseObject<any[]>>(`${this.baseApi}/account/getroles`);
   }
 
   save(role: Role) {
-    if (role.id) { return this.httpClient.put<void>(`${this.baseApi}/role`, role); }
-    return this.httpClient.post<void>(`${this.baseApi}/role`, role);
+    if (role.id) { return this.httpClient.put<ResponseObject<Role>>(`${this.baseApi}/profile`, role); }
+    return this.httpClient.post<ResponseObject<Role>>(`${this.baseApi}/profile`, role);
   }
 
   destroy(id: number) {
-    return this.httpClient.delete<ResponseObject<Role>>(`${this.baseApi}/role/${id}`);
+    return this.httpClient.delete<ResponseObject<Role>>(`${this.baseApi}/profile/delete/${id}`);
   }
 }

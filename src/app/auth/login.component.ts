@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginParams } from "./auth.model";
-import { AuthService } from "./auth.service";
-import { Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { LoginParams } from './auth.model';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -31,9 +31,11 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.authenticate(params).subscribe((res) => {
       this.loading = false;
-      this.authService.setUser(res);
-      this.authService.announceLogin(true)
+      if (res.success) {
+        this.authService.announceLogin(true)
+        this.authService.setUser(res.data);
       this.router.navigate(['/dashboard']);
+      }
     }, err => {
       this.loading = false;
       this.loginForm.reset();

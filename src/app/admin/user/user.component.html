@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" *ngIf="!userForm.controls.id.value">
                         <div class="form-group col-sm-12 col-md-6">
                             <label>Password
                                 <i class="fa fa-asterisk text-danger"></i>
@@ -92,15 +92,15 @@
                             <label>Password Confirmation
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
-                            <input type="password" class="form-control" formControlName="passwordConfirmation"
-                                [class.invalid-input]="userForm.controls.passwordConfirmation.dirty && userForm.controls.passwordConfirmation.invalid">
+                            <input type="password" class="form-control" formControlName="confirmPassword"
+                                [class.invalid-input]="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.invalid">
                             <div class="invalid-msg">
                                 <div
-                                    *ngIf="userForm.controls.passwordConfirmation.dirty && userForm.controls.passwordConfirmation.errors">
+                                    *ngIf="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.errors">
                                     This field is required
                                 </div>
                                 <div
-                                    *ngIf="userForm.controls.passwordConfirmation.dirty && userForm.hasError('passwordMismatch')">
+                                    *ngIf="userForm.controls.confirmPassword.dirty && userForm.hasError('passwordMismatch')">
                                     Passwords don't match
                                 </div>
                             </div>

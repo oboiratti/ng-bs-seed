@@ -4,6 +4,7 @@ import { PageHeaderComponent } from './page-header/page-header.component';
 import { ReactiveFormsModule, FormsModule } from '../../../node_modules/@angular/forms';
 import { ValidateFormDirective } from './directives/validate-form.directive';
 import { SearchComponent } from './search/search.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -19,7 +20,10 @@ import { SearchComponent } from './search/search.component';
   exports: [
     PageHeaderComponent,
     ValidateFormDirective,
-    SearchComponent
+    SearchComponent,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

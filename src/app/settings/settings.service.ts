@@ -6,10 +6,8 @@ import { environment } from 'src/environments/environment';
 export class LookUps {
   static get models() {
     return [
-      {label: "Product Category", description: "Add, Edit and Delete Product Category", name: "product_category", icon: "fa fa-building text-warning"},
-      {label: "Package", description: "Add, Edit and Delete Package", name: "package", icon: "fa fa-male text-primary"},
-      // {label: "Educational Level", description: "Add, Edit and Delete Educational Level", name: "education_level", icon: "fa fa-graduation-cap text-danger"},
-      // {label: "Type", description: "Add, Edit and Delete Type", name: "type", icon: "fa fa-bandcamp text-success"}
+      {label: 'Product Category', description: 'Manage Product Category', name: 'product_category', icon: 'fa fa-building text-warning'},
+      {label: 'Package', description: 'Manage Package', name: 'package', icon: 'fa fa-male text-primary'}
     ];
   }
 }
@@ -27,11 +25,11 @@ export class SettingsService {
   }
 
   save(name: string, params: any) {
-    if (params.id) return this.httpClient.put<ResponseObject<any>>(`${this.baseApi}/${name}`, params);
+    if (params.id) { return this.httpClient.put<ResponseObject<any>>(`${this.baseApi}/${name}`, params); }
     return this.httpClient.post<ResponseObject<any>>(`${this.baseApi}/${name}`, params);
   }
 
   destroy(name: string, id: number) {
-    return this.httpClient.delete<ResponseObject<any>>(`${this.baseApi}/${name}/${id}`);
+    return this.httpClient.delete<ResponseObject<any>>(`${this.baseApi}/${name}/delete/${id}`);
   }
 }
