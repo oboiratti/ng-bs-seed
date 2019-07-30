@@ -9,6 +9,7 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { FilterComponent } from './components/filter/filter.component';
 import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.component';
 import { ReportFilterComponent } from './components/report-filter/report-filter.component';
+import { AuthorizeDirective } from './directives/authorize.directive';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { ReportFilterComponent } from './components/report-filter/report-filter.
     SearchComponent,
     FilterComponent,
     DynamicTableComponent,
-    ReportFilterComponent
+    ReportFilterComponent,
+    AuthorizeDirective
   ],
   exports: [
     FormsModule,
@@ -35,7 +37,8 @@ import { ReportFilterComponent } from './components/report-filter/report-filter.
     NgbPaginationModule,
     FilterComponent,
     DynamicTableComponent,
-    ReportFilterComponent
+    ReportFilterComponent,
+    AuthorizeDirective
   ]
 })
 export class SharedModule { }

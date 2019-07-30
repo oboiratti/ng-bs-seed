@@ -3,7 +3,7 @@
 <div class="page-content">
     <div class="row mb-4" *ngIf="!showForm">
         <div class="col">
-            <button type="button" class="btn btn-primary" (click)="openForm()">
+            <button type="button" class="btn btn-primary" (click)="openForm()" appAuthorize="CanCreateUser">
                 <i class="fa fa-plus left"></i> Add User</button>
         </div>
         <div class="col">
