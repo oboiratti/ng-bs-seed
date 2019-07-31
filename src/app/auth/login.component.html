@@ -1,5 +1,5 @@
 <div class="login-body">
-    <div class="card col-sm-6 col-md-4">
+    <div class="card col-sm-6 col-md-4 border border-info shadow">
         <div class="card-body">
             <h4 class="card-title text-center mb-5">Sign In</h4>
             <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
@@ -7,7 +7,7 @@
                     <!-- <label for="username">Username</label> -->
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <i class="input-group-text fa fa-user-circle pt-2"></i>
+                            <i class="input-group-text fa fa-user-circle"></i>
                         </div>
                         <input id="username" type="text" class="form-control" formControlName="username" placeholder="Username">
                     </div>
@@ -16,12 +16,12 @@
                     <!-- <label for="password">Password</label> -->
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <i class="input-group-text fa fa-unlock-alt pt-2"></i>
+                            <i class="input-group-text fa fa-unlock-alt"></i>
                         </div>
                         <input id="password" type="password" class="form-control" formControlName="password" placeholder="Password">
                     </div>
                 </div>
-                <div class="">
+                <div>
                     <button class="btn btn-success btn-block" type="submit" [disabled]="!loginForm.valid" *ngIf="!loading">
                         <i class="fa fa-sign-in left"></i> Submit
                     </button>
