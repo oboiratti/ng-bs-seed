@@ -26,7 +26,7 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private settingsService: SettingsService,
-    private productService: ProductService) { 
+    private productService: ProductService) {
     this.buildForm()
   }
 
@@ -40,9 +40,9 @@ export class ProductFormComponent implements OnInit {
   }
 
   save() {
-    this.blockUi.start("Saving Product...")
+    this.blockUi.start('Saving Product...')
 
-    const params = this.productForm.value 
+    const params = this.productForm.value
     params.packages = this.productPackages
     this.productService.save(params).subscribe((res) => {
       this.blockUi.stop()
@@ -59,9 +59,9 @@ export class ProductFormComponent implements OnInit {
   }
 
   remove(id: number) {
-    MessageDialog.confirm("Delete Product", "Are you sure you want to delete this product?").then(confirm => {
+    MessageDialog.confirm('Delete Product', 'Are you sure you want to delete this product?').then(confirm => {
       if (confirm.value) {
-        this.blockUi.start("Deleting Product...")
+        this.blockUi.start('Deleting Product...')
         this.productService.remove(id).subscribe((res) => {
           this.blockUi.stop()
           if (res.success) {
@@ -85,9 +85,9 @@ export class ProductFormComponent implements OnInit {
       return;
     }
 
-    MessageDialog.confirm("Delete Product Package", "Are you sure you want to delete this product package?").then(confirm => {
+    MessageDialog.confirm('Delete Product Package', 'Are you sure you want to delete this product package?').then(confirm => {
       if (confirm.value) {
-        this.blockUi.start("Deleting...")
+        this.blockUi.start('Deleting...')
         this.productService.deletePackage(productPackage.id.product, productPackage.id.pakage).subscribe((res) => {
           this.blockUi.stop()
           if (res.success) {
@@ -118,20 +118,20 @@ export class ProductFormComponent implements OnInit {
     })
 
     this.packageForm = this.fb.group({
-        pakage: new FormControl(null, Validators.required),
-        description: new FormControl(),
-        quantity: new FormControl('', Validators.required),
-        price: new FormControl('', Validators.required)
-      })
+      pakage: new FormControl(null, Validators.required),
+      description: new FormControl(),
+      quantity: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required)
+    })
   }
 
   private getProduct(id: number) {
-    this.blockUi.start("Loading...")
+    this.blockUi.start('Loading...')
     this.productService.getOne(id).subscribe((product) => {
       this.blockUi.stop()
       // if (res.success) {
-        this.productForm.patchValue(product)
-        this.productPackages = product.packages
+      this.productForm.patchValue(product)
+      this.productPackages = product.packages
       // }
     }, err => {
       this.blockUi.stop()
@@ -139,7 +139,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   private loadCategories() {
-    this.settingsService.fetch("product_category").subscribe((res) => {
+    this.settingsService.fetch('product_category').subscribe((res) => {
       if (res.success) {
         this.categories = res.data
       }
@@ -147,7 +147,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   private loadPackages() {
-    this.settingsService.fetch("package").subscribe((res) => {
+    this.settingsService.fetch('package').subscribe((res) => {
       if (res.success) {
         this.packages = res.data
       }

@@ -14,7 +14,7 @@ export class SidenavComponent implements OnInit {
   @Input() menus: IMenuItem[]
   @Input() currentUser: User
   @ViewChild('sidebar', { static: false }) sidebar: ElementRef
-  @ViewChild('content', { static: true }) content: ElementRef
+  // @ViewChild('content', { static: true }) content: ElementRef
   @ViewChild('overlay', { static: true }) overlay: ElementRef
   show: boolean
   username: string;
@@ -26,7 +26,7 @@ export class SidenavComponent implements OnInit {
   toggleOverlay() {
     if (this.show) {
       this.renderer.removeClass(this.sidebar.nativeElement, 'toggle');
-      this.renderer.removeClass(this.content.nativeElement, 'toggle');
+      // this.renderer.removeClass(this.content.nativeElement, 'toggle');
       this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
       this.show = !this.show
     }
@@ -40,11 +40,11 @@ export class SidenavComponent implements OnInit {
     this.show = !this.show
     if (this.show) {
       this.renderer.addClass(this.sidebar.nativeElement, 'toggle');
-      this.renderer.addClass(this.content.nativeElement, 'toggle');
+      // this.renderer.addClass(this.content.nativeElement, 'toggle');
       this.renderer.addClass(this.overlay.nativeElement, 'toggle');
     } else {
       this.renderer.removeClass(this.sidebar.nativeElement, 'toggle');
-      this.renderer.removeClass(this.content.nativeElement, 'toggle');
+      // this.renderer.removeClass(this.content.nativeElement, 'toggle');
       this.renderer.removeClass(this.overlay.nativeElement, 'toggle');
     }
   }
