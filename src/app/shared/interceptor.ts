@@ -27,17 +27,17 @@ export class Interceptor implements HttpInterceptor {
       .handle(authReq)
       .pipe(
         tap((response: HttpResponse<any>) => {
-          if (response.status === 200 && req.method !== 'GET') {
-            if (response.body && response.body.message) { Toast.show(response.body.message, true); }
+          if (response.body && response.body.message) {
+            Toast.show(response.body.message, true);
           }
         }, err => {
-          console.log(err);
-
-          if (err.error) {
-            if (err.error.message === 'No message available') {
-              Toast.error(err.error.error);
-            } else { Toast.error(err.error.message || err.message); }
-          } else if (err.message) { Toast.error(err.message); }
+          console.log(err)
+          Toast.error(`${err.statusText}: ${err.error || err.message}`);
+          // if (err.error) {
+          //   if (err.error.message === 'No message available') {
+          //     Toast.error(err.error.error);
+          //   } else { Toast.error(err.error.message || err.message); }
+          // } else if (err.message) { Toast.error(err.message); }
         }
         )
       );

@@ -15,7 +15,7 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   roles$: Observable<Role[]>;
   showForm: boolean;
-  privileges: any[] = [];
+  claims$: Observable<[]>;
   role = <Role>{};
   checkAll: boolean;
   title = 'Add New Role';
@@ -26,7 +26,7 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchRoles();
-    this.fetchPermissions();
+    this.fetchClaims();
     this.title = 'Add New Role';
   }
 
@@ -48,51 +48,42 @@ export class RoleComponent implements OnInit, OnDestroy {
   selectRow(role: Role) {
     this.title = 'Edit Role';
     this.role = role;
-    this.role.privileges = (role.privileges as string).split(',');
     this.showForm = true;
   }
 
   save() {
-    this.role.privileges = (this.role.privileges as string[]).reduce((acc, elm, index, array) => {
-      return (index < array.length - 1) ? acc += `${elm},` : acc += `${elm}`
-    }, '')
-
     if (!this.role.name) {
       MessageDialog.error('Please enter the name of the role to be created');
       return;
     }
 
-    if (this.role.privileges === '') {
+    if (!this.role.claims || this.role.claims.length <= 0) {
       MessageDialog.error('Role must have at least one permission');
       return;
     }
 
     this.blockForm.start('Saving...')
     this.roleService.save(this.role)
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((res) => {
-      this.blockForm.stop();
-      if (res.success) {
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.blockForm.stop();
         this.closeForm();
         this.fetchRoles();
-      }
-    }, () => this.blockForm.stop());
+      }, () => this.blockForm.stop());
   }
 
-  remove(id: number) {
+  remove(id: string) {
     MessageDialog.confirm('Delete Role', 'Are you sure you want to delete this role').then((confirm) => {
       if (confirm.value) {
         this.blockForm.start('Deleting...')
         this.roleService.destroy(id)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res) => {
-          this.blockForm.stop();
-          if (res.success) {
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(() => {
+            this.blockForm.stop();
             this.closeForm();
             this.fetchRoles();
             this.role = <Role>{};
-          }
-        }, () => this.blockForm.stop());
+          }, () => this.blockForm.stop());
       }
     }).catch(() => this.blockForm.stop());
   }
@@ -104,13 +95,7 @@ export class RoleComponent implements OnInit, OnDestroy {
     )
   }
 
-  private fetchPermissions() {
-    this.roleService.permissions()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((res) => {
-      if (res.success) {
-      this.privileges = res.data;
-      }
-    })
+  private fetchClaims() {
+    this.claims$ = this.roleService.claims()
   }
 }

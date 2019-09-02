@@ -3,7 +3,7 @@
 <div class="page-content">
     <div class="row mb-4" *ngIf="!showForm">
         <div class="col">
-            <button type="button" class="btn btn-primary" (click)="openForm()" appAuthorize="CanCreateUser">
+            <button type="button" class="btn btn-primary" (click)="openForm()" appAuthorize="CanCreateUsers">
                 <i class="fa fa-plus left"></i> Add User</button>
         </div>
         <div class="col">
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-10 offset-md-1" *ngIf="showForm">
+    <div class="col-sm-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3" *ngIf="showForm">
         <form [formGroup]="userForm">
             <div class="card">
                 <div class="card-header">
@@ -20,17 +20,31 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Name
+                            <label>Surname
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
-                            <input type="text" class="form-control" formControlName="name"
-                                [class.invalid-input]="userForm.controls.name.dirty && userForm.controls.name.invalid">
+                            <input type="text" class="form-control" formControlName="surname"
+                                [class.invalid-input]="userForm.controls.surname.dirty && userForm.controls.surname.invalid">
                             <div class="invalid-msg"
-                                *ngIf="userForm.controls.name.dirty && userForm.controls.name.errors">
+                                *ngIf="userForm.controls.surname.dirty && userForm.controls.surname.errors">
                                 This field is required
                             </div>
                         </div>
 
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Other Names
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="text" class="form-control" formControlName="otherNames"
+                                [class.invalid-input]="userForm.controls.otherNames.dirty && userForm.controls.otherNames.invalid">
+                            <div class="invalid-msg"
+                                *ngIf="userForm.controls.otherNames.dirty && userForm.controls.otherNames.errors">
+                                This field is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="form-group col-sm-12 col-md-6">
                             <label>Email</label>
                             <input type="email" class="form-control" formControlName="email">
@@ -39,31 +53,19 @@
                                 Email is invalid
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12 col-md-6">
-                            <label>Phone Number</label>
-                            <input type="text" class="form-control" formControlName="phoneNumber" [class.is-invalid]="phoneNumber.dirty && phoneNumber.invalid">
-                            <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.invalid">
-                                <div *ngIf="phoneNumber.errors.pattern">
-                                    Phone number must start with 0 and must be 10 digits long
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="form-group col-sm-12 col-md-6">
                             <label>Username
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
-                            <input type="text" class="form-control" formControlName="username"
-                                [class.invalid-input]="userForm.controls.username.dirty && userForm.controls.username.invalid">
+                            <input type="text" class="form-control" formControlName="userName"
+                                [class.invalid-input]="userForm.controls.userName.dirty && userForm.controls.userName.invalid">
                             <div class="invalid-msg"
-                                *ngIf="userForm.controls.username.dirty && userForm.controls.username.errors">
-                                <div *ngIf="userForm.controls.username.errors.required">
+                                *ngIf="userForm.controls.userName.dirty && userForm.controls.userName.errors">
+                                <div *ngIf="userForm.controls.userName.errors.required">
                                     This field is required
                                 </div>
-                                <div *ngIf="userForm.controls.username.errors.minlength">
+                                <div *ngIf="userForm.controls.userName.errors.minlength">
                                     Username must be at least 6 characters long
                                 </div>
                             </div>
@@ -109,13 +111,24 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12 col-md-6">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" formControlName="phoneNumber"
+                                [class.is-invalid]="phoneNumber.dirty && phoneNumber.invalid">
+                            <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.invalid">
+                                <div *ngIf="phoneNumber.errors.pattern">
+                                    Phone number must start with 0 and must be 10 digits long
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6">
                             <label>Role
                                 <i class="fa fa-asterisk text-danger"></i>
                             </label>
                             <select class="form-control" formControlName="role" [compareWith]="compareRoles"
                                 [class.invalid-input]="userForm.controls.role.dirty && userForm.controls.role.invalid">
                                 <option value="">Select Role</option>
-                                <option *ngFor="let role of roles$ | async" [ngValue]="role">{{role.name}}</option>
+                                <option *ngFor="let role of roles$ | async" [ngValue]="role.name">{{role.name}}</option>
                             </select>
                             <div class="invalid-msg"
                                 *ngIf="userForm.controls.role.dirty && userForm.controls.role.errors">
@@ -126,14 +139,15 @@
 
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-danger float-right"
-                        (click)="remove(userForm.controls.id.value)" *ngIf="userForm.controls.id.value">
+                    <button type="button" class="btn btn-danger float-left" (click)="remove(userForm.controls.id.value)"
+                        *ngIf="userForm.controls.id.value">
                         <i class="fa fa-trash"></i> Delete
                     </button>
-                    <button type="submit" class="btn btn-success" [validateForm]="userForm" (valid)="save()">
+                    <button type="submit" class="btn btn-success float-right" [validateForm]="userForm"
+                        (valid)="save()">
                         <i class="fa fa-save"></i> Save
                     </button>
-                    <button type="button" class="btn btn-secondary" (click)="closeForm()">
+                    <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
                         <i class="fa fa-close"></i> Cancel
                     </button>
                 </div>
@@ -160,11 +174,11 @@
                             <tr *ngFor="let user of users$ | async; let i = index" class="pointer"
                                 (click)="selectRow(user)">
                                 <td class="table-index">{{i + 1}}.</td>
-                                <td>{{user.name}}</td>
-                                <td>{{user.username}}</td>
+                                <td>{{user.otherNames + ' ' + user.surname}}</td>
+                                <td>{{user.userName}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.phoneNumber}}</td>
-                                <td>{{user.role.name}}</td>
+                                <td>{{user.role}}</td>
                             </tr>
                         </tbody>
                     </table>

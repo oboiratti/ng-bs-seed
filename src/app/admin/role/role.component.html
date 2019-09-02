@@ -11,7 +11,7 @@
     <div *ngIf="showForm">
         <form (ngSubmit)="save()">
             <div class="row">
-                <div class="col-sm-12 col-md-10 offset-md-1">
+                <div class="col-sm-12 col-md-8 offset-md-2 col-xl-6 offset-xl-3">
                     <div class="card">
                         <div class="card-body mx-md-4">
                             <h5 class="card-title text-uppercase text-muted ml-md-n4">Role Form</h5><br>
@@ -21,8 +21,23 @@
                             </div>
                             <div class="form-group">
                                 <label>Privileges</label>
-                                <ng-select name="privileges" multiple="true" [items]="privileges" [hideSelected]="true"
-                                    placeholder="Select Privileges" [clearable]="false" [(ngModel)]="role.privileges">
+                                <ng-select name="claims" [items]="claims$ | async" [multiple]="true"
+                                    [closeOnSelect]="false" [(ngModel)]="role.claims">
+                                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                        <input id="item-{{index}}" name="item-{{index}}" type="checkbox"
+                                            [ngModel]="item$.selected" />
+                                        {{item}}
+                                    </ng-template>
+                                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                        <div class="ng-value" *ngFor="let item of items | slice:0:4">
+                                            <span class="ng-value-label"> {{item}}</span>
+                                            <span class="ng-value-icon right" (click)="clear(item)"
+                                                aria-hidden="true">×</span>
+                                        </div>
+                                        <div class="ng-value" *ngIf="items.length > 4">
+                                            <span class="ng-value-label">{{items.length - 4}} more...</span>
+                                        </div>
+                                    </ng-template>
                                 </ng-select>
                             </div>
                             <div class="form-group">
@@ -30,7 +45,7 @@
                                 <textarea rows="3" class="form-control" name="notes" [(ngModel)]="role.notes"></textarea>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary-custom border border-dark float-right">
+                                <button type="submit" class="btn btn-success float-right">
                                     <i class="fa fa-save"></i> Save</button>
                                 <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
                                     <i class="fa fa-close"></i> Cancel</button>
@@ -63,7 +78,7 @@
                                 <td class="table-index">{{i + 1}}.</td>
                                 <td>{{role.name}}</td>
                                 <td>{{role.notes}}</td>
-                                <td>{{role.privileges.split(", ").length}}</td>
+                                <td>{{role.claims.length}}</td>
                             </tr>
                         </tbody>
                     </table>

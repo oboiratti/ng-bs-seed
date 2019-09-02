@@ -15,12 +15,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   fetch() {
-    return this.httpClient.get<ResponseObject<User[]>>(`${this.baseApi}/account/getusers`)
-      .pipe(
-        map(res => {
-          if (res.success) { return res.data }
-        })
-      );
+    return this.httpClient.get<User[]>(`${this.baseApi}/account/getusers`)
   }
 
   query(params: UserQuery) {
@@ -28,11 +23,11 @@ export class UserService {
   }
 
   save(params: User) {
-    if (params.id) { return this.httpClient.put<ResponseObject<User>>(`${this.baseApi}/account/updateuser`, params); }
-    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/account/createuser`, params);
+    if (params.id) { return this.httpClient.put(`${this.baseApi}/account/updateuser`, params); }
+    return this.httpClient.post(`${this.baseApi}/account/createuser`, params);
   }
 
   destroy(id: number) {
-    return this.httpClient.delete<ResponseObject<User>>(`${this.baseApi}/account/deleteuser?id=${id}`);
+    return this.httpClient.delete(`${this.baseApi}/account/deleteuser?id=${id}`);
   }
 }

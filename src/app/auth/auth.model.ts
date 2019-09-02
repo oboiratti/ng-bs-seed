@@ -10,13 +10,14 @@ export interface User {
     token: string;
     role: Role;
     image: string
+    claims: []
 }
 
 export interface Role {
     id: number;
     name: string;
     notes?: string;
-    privileges: string | string[];
+    claims: string[]
 }
 
 export interface LoginParams {

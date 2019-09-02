@@ -31,14 +31,11 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.authenticate(params).subscribe((res) => {
       this.loading = false;
-      if (res.success) {
-        this.authService.announceLogin(true)
-        this.authService.setUser(res.data);
+      this.authService.announceLogin(true)
+      this.authService.setUser(res.data);
       this.router.navigate(['/dashboard']);
-      }
     }, err => {
       this.loading = false;
-      this.loginForm.reset();
     });
   }
 }

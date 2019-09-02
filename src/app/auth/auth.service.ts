@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   invalidate() {
-    return this.httpClient.get<ResponseObject<User>>(`${this.baseApi}/account/logout`)
+    return this.httpClient.get(`${this.baseApi}/account/logout`)
   }
 
   setUser(user: User) {
@@ -48,7 +48,7 @@ export class AuthService {
 
   canAccess(privileges: string) {
     const privs = privileges.split('|');
-    const found = (this.currentUser.role.privileges as []).filter(value => privs.includes(value))
+    const found = this.currentUser.claims.filter(value => privs.includes(value))
     return found.length > 0
   }
 }

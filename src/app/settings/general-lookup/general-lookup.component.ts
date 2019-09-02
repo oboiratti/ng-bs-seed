@@ -61,13 +61,10 @@ export class GeneralLookupComponent implements OnInit {
     this.blockForm.start("Saving...");
     this.settingsService.save(this.modelName, this.record).subscribe((res) => {
       this.blockForm.stop();
-      if (res.success) {
         this.closeForm()
         this.fetchRecords();
-      }
-    }, err => {
+    }, () => {
       this.blockForm.stop();
-      console.log("Error -> " + err);
     });
   }
 
@@ -77,25 +74,20 @@ export class GeneralLookupComponent implements OnInit {
         this.blockForm.start("Deleting...")
         this.settingsService.destroy(this.modelName, id).subscribe((res) => {
           this.blockForm.stop()
-          if (res.success) {
             this.closeForm()
             this.fetchRecords();
-          }
-        }, err => {
+        }, () => {
           this.blockForm.stop();
-          console.log("Error -> " + err.message);
         });
       }
-    }).catch((err) => {});
+    }).catch(() => {});
   }
 
   private fetchRecords() {
     this.blockForm.start("Loading...");
     this.settingsService.fetch(this.model.name).subscribe((res) => {
       this.blockForm.stop();
-      if (res.success) {
-        this.records = res.data;
-      }
+        this.records = res;
     }, ()  => this.blockForm.stop());
   }
 }

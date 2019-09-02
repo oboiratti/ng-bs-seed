@@ -21,15 +21,15 @@ export class SettingsService {
   constructor(private httpClient: HttpClient) { }
 
   fetch(name: string) {
-    return this.httpClient.get<ResponseObject<any>>(`${this.baseApi}/${name}`);
+    return this.httpClient.get<[]>(`${this.baseApi}/${name}`);
   }
 
   save(name: string, params: any) {
-    if (params.id) { return this.httpClient.put<ResponseObject<any>>(`${this.baseApi}/${name}`, params); }
-    return this.httpClient.post<ResponseObject<any>>(`${this.baseApi}/${name}`, params);
+    if (params.id) { return this.httpClient.put(`${this.baseApi}/${name}`, params); }
+    return this.httpClient.post(`${this.baseApi}/${name}`, params);
   }
 
   destroy(name: string, id: number) {
-    return this.httpClient.delete<ResponseObject<any>>(`${this.baseApi}/${name}/delete/${id}`);
+    return this.httpClient.delete(`${this.baseApi}/${name}/delete/${id}`);
   }
 }

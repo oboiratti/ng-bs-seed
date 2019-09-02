@@ -46,11 +46,9 @@ export class AppComponent implements OnInit {
     this.blockUi.start('Logging Out...')
     this.authService.invalidate().subscribe((res) => {
       this.blockUi.stop()
-      if (res.success) {
         this.isLoggedIn = false;
         this.authService.removeUser();
         this.router.navigate(['/login']);
-      }
     }, () => this.blockUi.stop());
   }
 

@@ -140,17 +140,13 @@ export class ProductFormComponent implements OnInit {
 
   private loadCategories() {
     this.settingsService.fetch('product_category').subscribe((res) => {
-      if (res.success) {
-        this.categories = res.data
-      }
+        this.categories = res
     })
   }
 
   private loadPackages() {
     this.settingsService.fetch('package').subscribe((res) => {
-      if (res.success) {
-        this.packages = res.data
-      }
+        this.packages = res
     })
   }
 }

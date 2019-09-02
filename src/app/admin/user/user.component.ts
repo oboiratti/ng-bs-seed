@@ -38,30 +38,13 @@ export class UserComponent implements OnInit, OnDestroy {
     { label: 'Username', value: 'username', type: 'text' }
   ]
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private roleService: RoleService) {
-    this.userForm = this.formBuilder.group({
-      id: new FormControl(''),
-      name: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')),
-      phoneNumber: new FormControl('', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern('^[0]+[0-9]{9}$')
-      ])),
-      username: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(6)
-      ])),
-      password: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(6)
-      ])),
-      confirmPassword: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required)
-    }, { validator: this.checkPasswords });
+  constructor(private formBuilder: FormBuilder,
+    private userService: UserService,
+    private roleService: RoleService) {
   }
 
   ngOnInit() {
+    this.setupForm();
     this.fetchUsers();
     this.fetchRoles();
     // this.params = <UserQuery>{ page: 0, size: 5, sortField: "id", sortOrder: -1 };
@@ -75,7 +58,7 @@ export class UserComponent implements OnInit, OnDestroy {
   openForm() {
     this.showForm = true;
     // this.userForm.reset();
-    this.userForm.get('username').enable();
+    this.userForm.get('userName').enable();
   }
 
   closeForm() {
@@ -92,7 +75,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   selectRow(user: User) {
     this.userForm.patchValue(user);
-    this.userForm.get('username').disable();
+    this.userForm.get('userName').disable();
     this.userForm.get('password').setValidators(null)
     this.userForm.get('confirmPassword').setValidators(null)
     this.userForm.updateValueAndValidity()
@@ -109,16 +92,14 @@ export class UserComponent implements OnInit, OnDestroy {
 
     this.blockForm.start('Saving...');
     this.userService.save(this.user)
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((res) => {
-      this.blockForm.stop();
-      if (res.success) {
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.blockForm.stop();
         this.closeForm()
         this.fetchUsers();
-      }
-    }, () => {
-      this.blockForm.stop();
-    });
+      }, () => {
+        this.blockForm.stop();
+      });
   }
 
   remove(id: number) {
@@ -126,27 +107,18 @@ export class UserComponent implements OnInit, OnDestroy {
       if (confirm.value) {
         this.blockForm.start('Deleting...');
         this.userService.destroy(id)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res) => {
-          this.blockForm.stop();
-          if (res.success) {
-          this.closeForm()
-          this.fetchUsers();
-          }
-        }, () => {
-          this.blockForm.stop();
-        });
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(() => {
+            this.blockForm.stop();
+              this.closeForm()
+              this.fetchUsers();
+          }, () => {
+            this.blockForm.stop();
+          });
       }
     }).catch(() => {
       this.blockForm.stop();
     });
-  }
-
-  fetchUsers() {
-    this.blockForm.start('Loading...')
-    this.users$ = this.userService.fetch().pipe(
-      finalize(() => this.blockForm.stop())
-    )
   }
 
   compareRoles(obj1: Role, obj2: Role): boolean {
@@ -154,6 +126,37 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   get phoneNumber() { return this.userForm.get('phoneNumber') }
+
+  private setupForm() {
+    this.userForm = this.formBuilder.group({
+      id: new FormControl(''),
+      surname: new FormControl('', Validators.required),
+      otherNames: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')),
+      phoneNumber: new FormControl('', Validators.compose([
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern('^[0]+[0-9]{9}$')
+      ])),
+      userName: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(5)
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])),
+      confirmPassword: new FormControl('', Validators.required),
+      role: new FormControl('', Validators.required)
+    }, { validator: this.checkPasswords });
+  }
+
+  private fetchUsers() {
+    this.blockForm.start('Loading...')
+    this.users$ = this.userService.fetch().pipe(
+      finalize(() => this.blockForm.stop())
+    )
+  }
 
   private fetchRoles() {
     this.roles$ = this.roleService.fetch()
