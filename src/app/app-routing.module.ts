@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './auth/login.component';
-import { AuthGuard } from './auth-guard.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SettingsComponent } from './settings/settings.component';
-import { GeneralLookupComponent } from './settings/general-lookup/general-lookup.component';
-import { PageNotFoundComponent } from './page-not-found.component';
-import { Route } from './shared/constants';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
+import { LoginComponent } from './auth/login.component'
+import { AuthGuard } from './auth-guard.service'
+import { DashboardComponent } from './dashboard/dashboard.component'
+import { SettingsComponent } from './settings/settings.component'
+import { GeneralLookupComponent } from './settings/general-lookup/general-lookup.component'
+import { PageNotFoundComponent } from './page-not-found.component'
+import { Route } from './shared/constants'
 
 const routes: Routes = [
   {
     path: Route.login,
-    component: LoginComponent,
-    canActivate: [AuthGuard]
+    loadChildren: () =>
+      import('./auth/auth.module').then(module => module.AuthModule)
+    // canActivate: [AuthGuard]
   },
   {
     path: Route.dashboard,
@@ -38,11 +39,11 @@ const routes: Routes = [
     path: '**',
     component: PageNotFoundComponent
   }
-];
+]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
