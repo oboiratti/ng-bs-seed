@@ -12,8 +12,8 @@ const routes: Routes = [
   {
     path: Route.login,
     loadChildren: () =>
-      import('./auth/auth.module').then(module => module.AuthModule)
-    // canActivate: [AuthGuard]
+      import('./auth/auth.module').then(module => module.AuthModule),
+    canActivate: [AuthGuard]
   },
   {
     path: Route.dashboard,
@@ -21,13 +21,31 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: Route.settings,
-    component: SettingsComponent,
+    path: Route.product,
+    loadChildren: () =>
+      import('./products/products.module').then(
+        module => module.ProductsModule
+      ),
     canActivate: [AuthGuard]
   },
   {
-    path: Route.genericSettings,
-    component: GeneralLookupComponent,
+    path: Route.reports,
+    loadChildren: () =>
+      import('./report/report.module').then(module => module.ReportModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: Route.profile,
+    loadChildren: () =>
+      import('./profile/profile.module').then(module => module.ProfileModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: Route.settings,
+    loadChildren: () =>
+      import('./settings/settings.module').then(
+        module => module.SettingsModule
+      ),
     canActivate: [AuthGuard]
   },
   {

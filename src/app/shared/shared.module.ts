@@ -13,11 +13,13 @@ import { FilterComponent } from './components/filter/filter.component'
 import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.component'
 import { ReportFilterComponent } from './components/report-filter/report-filter.component'
 import { AuthorizeDirective } from './directives/authorize.directive'
+import { LoadingComponent } from './loading.component'
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectModule],
   declarations: [
     PageHeaderComponent,
+    LoadingComponent,
     ValidateFormDirective,
     SearchComponent,
     FilterComponent,
@@ -30,6 +32,7 @@ import { AuthorizeDirective } from './directives/authorize.directive'
     FormsModule,
     ReactiveFormsModule,
     PageHeaderComponent,
+    LoadingComponent,
     ValidateFormDirective,
     SearchComponent,
     NgSelectModule,

@@ -23,34 +23,18 @@ import { ProductsModule } from './products/products.module'
 import { ReportModule } from './report/report.module'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoadingComponent,
-    DashboardComponent,
-    SettingsComponent,
-    PageNotFoundComponent,
-    // LoginComponent,
-    GeneralLookupComponent
-  ],
+  declarations: [AppComponent, DashboardComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
     AdminModule,
-    ProfileModule,
-    ProductsModule,
-    ReportModule,
     CoreModule,
     BlockUIModule.forRoot()
   ],
   providers: [
-    { provide: 'baseApi', useValue: 'api' },
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
-    AuthService,
-    SettingsService
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { Route } from '../shared/constants';
-import { ProfileComponent } from './profile.component';
-import { AuthGuard } from '../auth-guard.service';
-import { ProfileFormComponent } from './profile-form/profile-form.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
+import { Route } from '../shared/constants'
+import { ProfileComponent } from './profile.component'
+import { AuthGuard } from '../auth-guard.service'
+import { ProfileFormComponent } from './profile-form/profile-form.component'
+import { ChangePasswordComponent } from './change-password/change-password.component'
 
 const routes: Routes = [
   {
-    path: Route.profile,
+    path: '',
     component: ProfileComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: Route.profileForm,
@@ -24,10 +23,10 @@ const routes: Routes = [
       }
     ]
   }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProfileRoutingModule { }
+export class ProfileRoutingModule {}

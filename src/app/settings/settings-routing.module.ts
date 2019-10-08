@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { Route } from '../shared/constants'
-import { ReportComponent } from './report.component'
+import { SettingsComponent } from './settings.component'
 import { AuthGuard } from '../auth-guard.service'
+import { GeneralLookupComponent } from './general-lookup/general-lookup.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: ReportComponent
+    component: SettingsComponent
+  },
+  {
+    path: Route.genericSettings,
+    component: GeneralLookupComponent,
+    canActivate: [AuthGuard]
   }
 ]
 
@@ -15,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ReportRoutingModule {}
+export class SettingsRoutingModule {}

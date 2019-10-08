@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
 import { environment } from '../../environments/environment'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   currentUser: User
   loggedInSource = new Subject<boolean>()
