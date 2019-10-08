@@ -1,28 +1,88 @@
-<div class="login-body">
+<!-- <div class="login-body">
     <div class="card col-sm-6 col-md-4 border border-info shadow">
         <div class="card-body">
             <h4 class="card-title text-center mb-5">Sign In</h4>
             <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
                 <div class="form-group mb-5">
-                    <!-- <label for="username">Username</label> -->
+                    <label for="username">Username</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <i class="input-group-text fa fa-user-circle"></i>
                         </div>
-                        <input id="username" type="text" class="form-control" formControlName="username" placeholder="Username">
+                        <input id="username" type="text" class="form-control" formControlName="username"
+                            placeholder="Username">
                     </div>
                 </div>
                 <div class="form-group mb-5">
-                    <!-- <label for="password">Password</label> -->
+                    <label for="password">Password</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <i class="input-group-text fa fa-unlock-alt"></i>
                         </div>
-                        <input id="password" type="password" class="form-control" formControlName="password" placeholder="Password">
+                        <input id="password" type="password" class="form-control" formControlName="password"
+                            placeholder="Password">
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-success btn-block" type="submit" [disabled]="!loginForm.valid" *ngIf="!loading">
+                    <button class="btn btn-success btn-block" type="submit" [disabled]="!loginForm.valid"
+                        *ngIf="!loading">
+                        <i class="fa fa-sign-in left"></i> Submit
+                    </button>
+                    <button class="btn btn-success btn-block" disabled *ngIf="loading">
+                        <i class="fa fa-spinner fa-spin"></i> Authenticating
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<div class="container d-flex align-content-center">
+    <div class="card shadow mx-auto login-card">
+        <div class="card-body px-5">
+            <h5 class="card-title text-center text-uppercase">Login</h5>
+            <div class="text-center">
+                <img src="../assets/images/login.png" alt="Login Logo" height="80" width="80" />
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+                <div class="form-group mb-4">
+                    <label>Username</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-user-circle"></i>
+                            </div>
+                        </div>
+                        <input id="username" type="text" class="form-control" formControlName="username"
+                            placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label>Password</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <input id="password" type="password" class="form-control" formControlName="password"
+                            placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                        <label class="custom-control-label" for="customCheck1">
+                            Remember Me
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-success btn-block" type="submit" [disabled]="!loginForm.valid"
+                        *ngIf="!loading">
                         <i class="fa fa-sign-in left"></i> Submit
                     </button>
                     <button class="btn btn-success btn-block" disabled *ngIf="loading">
