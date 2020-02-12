@@ -14,6 +14,8 @@ import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.
 import { ReportFilterComponent } from './components/report-filter/report-filter.component'
 import { AuthorizeDirective } from './directives/authorize.directive'
 import { LoadingComponent } from './loading.component'
+import { FormCardComponent } from './components/form-card/form-card.component'
+import { LoadMoreComponent } from './components/load-more/load-more.component'
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgSelectModule],
@@ -25,7 +27,9 @@ import { LoadingComponent } from './loading.component'
     FilterComponent,
     DynamicTableComponent,
     ReportFilterComponent,
-    AuthorizeDirective
+    AuthorizeDirective,
+    FormCardComponent,
+    LoadMoreComponent
   ],
   exports: [
     CommonModule,
@@ -40,7 +44,9 @@ import { LoadingComponent } from './loading.component'
     FilterComponent,
     DynamicTableComponent,
     ReportFilterComponent,
-    AuthorizeDirective
+    AuthorizeDirective,
+    FormCardComponent,
+    LoadMoreComponent
   ]
 })
 export class SharedModule {}

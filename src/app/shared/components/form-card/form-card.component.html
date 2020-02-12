@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-sm-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3">
+        <form [formGroup]="formGroup">
+            <div class="card">
+                <div class="card-body mx-md-4">
+                    <h5 class="card-title text-uppercase text-muted ml-md-n4">{{title}}</h5><br>
+
+                    <ng-content></ng-content>
+
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-danger float-left"
+                            (click)="doDelete(formGroup.controls.id.value)" *ngIf="formGroup.controls.id.value">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                        <button type="submit" class="btn btn-success float-right" [validateForm]="formGroup"
+                            (valid)="doSave()">
+                            <i class="fa fa-save"></i> {{saveBtnText || 'Save'}}
+                        </button>
+                        <button type="button" class="btn btn-light border border-dark float-right"
+                            (click)="doCloseForm()">
+                            <i class="fa fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
