@@ -6,9 +6,9 @@
             <button type="button" class="btn btn-primary" (click)="openForm()">
                 <i class="fa fa-plus left"></i> Add User</button>
         </div>
-        <div class="col">
+        <!-- <div class="col">
             <app-search [filters]="filters" (search)="query($event)"></app-search>
-        </div>
+        </div> -->
     </div>
 
     <div class="col-sm-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3" *ngIf="showForm">
@@ -18,9 +18,7 @@
                     <h5 class="card-title text-uppercase text-muted ml-md-n4">User Form</h5><br>
                     <div class="row">
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Surname
-                                <i class="fa fa-asterisk text-danger"></i>
-                            </label>
+                            <label>Surname</label>
                             <input type="text" class="form-control" formControlName="surname"
                                 [class.invalid-input]="userForm.controls.surname.dirty && userForm.controls.surname.invalid">
                             <div class="invalid-msg"
@@ -30,9 +28,7 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Other Names
-                                <i class="fa fa-asterisk text-danger"></i>
-                            </label>
+                            <label>Other Names</label>
                             <input type="text" class="form-control" formControlName="otherNames"
                                 [class.invalid-input]="userForm.controls.otherNames.dirty && userForm.controls.otherNames.invalid">
                             <div class="invalid-msg"
@@ -53,9 +49,7 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Username
-                                <i class="fa fa-asterisk text-danger"></i>
-                            </label>
+                            <label>Username</label>
                             <input type="text" class="form-control" formControlName="userName"
                                 [class.invalid-input]="userForm.controls.userName.dirty && userForm.controls.userName.invalid">
                             <div class="invalid-msg"
@@ -72,9 +66,7 @@
 
                     <div class="row" *ngIf="!userForm.controls.id.value">
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Password
-                                <i class="fa fa-asterisk text-danger"></i>
-                            </label>
+                            <label>Password</label>
                             <input type="password" class="form-control" formControlName="password"
                                 [class.invalid-input]="userForm.controls.password.dirty && userForm.controls.password.invalid">
                             <div class="invalid-msg"
@@ -89,9 +81,7 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Password Confirmation
-                                <i class="fa fa-asterisk text-danger"></i>
-                            </label>
+                            <label>Password Confirmation</label>
                             <input type="password" class="form-control" formControlName="confirmPassword"
                                 [class.invalid-input]="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.invalid">
                             <div class="invalid-msg">
@@ -120,9 +110,7 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Role
-                                <i class="fa fa-asterisk text-danger"></i>
-                            </label>
+                            <label>Role</label>
                             <select class="form-control" formControlName="role" [compareWith]="compareRoles"
                                 [class.invalid-input]="userForm.controls.role.dirty && userForm.controls.role.invalid">
                                 <option value="">Select Role</option>
@@ -154,7 +142,7 @@
         </form>
     </div>
 
-    <div class="row" *ngIf="!showForm && !loading">
+    <div class="row" *ngIf="!showForm ">
         <div class="col-sm-12">
             <div class="card">
                 <div class="table-responsive-sm">

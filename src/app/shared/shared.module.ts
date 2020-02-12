@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { PageHeaderComponent } from './components/page-header/page-header.component'
-import {
-  ReactiveFormsModule,
-  FormsModule
-} from '../../../node_modules/@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { ValidateFormDirective } from './directives/validate-form.directive'
 import { SearchComponent } from './components/search/search.component'
 import { NgSelectModule } from '@ng-select/ng-select'
