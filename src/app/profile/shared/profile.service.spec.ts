@@ -1,15 +1,27 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing'
 
-import { ProfileService } from './profile.service';
+import { ProfileService } from './profile.service'
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing'
 
 describe('ProfileService', () => {
+  let httpTestingController: HttpTestingController
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProfileService]
-    });
-  });
+      providers: [ProfileService],
+      imports: [HttpClientTestingModule]
+    })
 
-  it('should be created', inject([ProfileService], (service: ProfileService) => {
-    expect(service).toBeTruthy();
-  }));
-});
+    httpTestingController = TestBed.inject(HttpTestingController)
+  })
+
+  it('should be created', inject(
+    [ProfileService],
+    (service: ProfileService) => {
+      expect(service).toBeTruthy()
+    }
+  ))
+})

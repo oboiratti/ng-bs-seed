@@ -1,12 +1,24 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { ReportService } from './report.service';
+import { ReportService } from './report.service'
+import {
+  HttpTestingController,
+  HttpClientTestingModule
+} from '@angular/common/http/testing'
 
 describe('ReportService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let httpTestingController: HttpTestingController
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    })
+
+    httpTestingController = TestBed.inject(HttpTestingController)
+  })
 
   it('should be created', () => {
-    const service: ReportService = TestBed.get(ReportService);
-    expect(service).toBeTruthy();
-  });
-});
+    const service: ReportService = TestBed.inject(ReportService)
+    expect(service).toBeTruthy()
+  })
+})
