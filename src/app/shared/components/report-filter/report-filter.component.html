@@ -15,8 +15,8 @@
         <input type="text" class="form-control" name="phone" placeholder="{{item.label}}" name="{{item.model}}"
           [(ngModel)]="model[item.model]" *ngIf="item.type === 'text'">
         <ng-select [items]="lookups[item.lookupStore]?.data" bindLabel="name" bindValue="id"
-          placeholder="{{item.label}}" [clearable]="true" name="{{item.model}}" [(ngModel)]="model[item.model]"
-          *ngIf="item.type === 'select'"></ng-select>
+          placeholder="{{item.label}}" [clearable]="false" name="{{item.model}}" [(ngModel)]="model[item.model]"
+          *ngIf="item.type === 'select'" (ngModelChange)="onSelected(item, model[item.model])"></ng-select>
         <input type="text" class="form-control" name="startDate" placeholder="{{item.label}}"
           onfocus="(this.type='date')" onblur="(this.type='text')" name="{{item.model}}" [(ngModel)]="model[item.model]"
           *ngIf="item.type === 'date'">
