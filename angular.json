@@ -130,10 +130,10 @@
   "defaultProject": "ng-bs-seed",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:module": {
-      "spec": false
+      "skipTests": true
     }
   }
 }
